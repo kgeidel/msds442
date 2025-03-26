@@ -10,7 +10,5 @@ Northwestern University<br>
 Spring '25
 <br>
 </div>
-<br>
-</p>
 <hr>
 
