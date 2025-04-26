@@ -1,9 +1,13 @@
+beautifulsoup4>=4.13.4
 ipykernel>=6.29.5
 langchain>=0.3.21
+langchain-chroma>=0.2.3
 langchain-community
 langchain-openai>=0.3.10
 langgraph>=0.3.20
 openai>=1.68.2
+pypdf>=5.4.0
+pysqlite3-binary>=0.5.4
 python-dotenv>=1.1.0
 requests>=2.32.3
 tavily-python>=0.5.1
