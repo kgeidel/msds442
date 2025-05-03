@@ -1,0 +1,1428 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{fancyhdr}
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Keep aspect ratio if custom image width or height is specified
+    \setkeys{Gin}{keepaspectratio}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \makeatletter
+    \newsavebox\pandoc@box
+    \newcommand*\pandocbounded[1]{%
+      \sbox\pandoc@box{#1}%
+      % scaling factors for width and height
+      \Gscale@div\@tempa\textheight{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+      \Gscale@div\@tempb\linewidth{\wd\pandoc@box}%
+      % select the smaller of both
+      \ifdim\@tempb\p@<\@tempa\p@
+        \let\@tempa\@tempb
+      \fi
+      % scaling accordingly (\@tempa < 1)
+      \ifdim\@tempa\p@<\p@
+        \scalebox{\@tempa}{\usebox\pandoc@box}%
+      % scaling not needed, use as it is
+      \else
+        \usebox{\pandoc@box}%
+      \fi
+    }
+    \makeatother
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{}
+    \date{}    
+    \author{}
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    \pagestyle{fancy}
+    \fancyhf{} % Clear all header and footer fields
+    \fancyhead[R]{\thepage} % Place the page number in the top right corner
+    \renewcommand{\headrulewidth}{0pt} % Remove the header rule
+
+    \setcounter{page}{7}
+
+
+\begin{document}
+    
+    % \maketitle
+    
+    
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{} MSDS 442: AI Agent Design and Development}
+\PY{c+c1}{\PYZsh{} Spring \PYZsq{}25}
+\PY{c+c1}{\PYZsh{} Dr. Bader}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{} Assignment 1 \PYZhy{} Financial Planning Agent}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} Kevin Geidel}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+
+\PY{c+c1}{\PYZsh{} OBJECTIVE:}
+\PY{c+c1}{\PYZsh{}   The following will construct an AI agent using the LangChain \PYZam{} LangGraph frameworks }
+\PY{c+c1}{\PYZsh{}   The agent will act as a Fidelity financial advisor to answer user questions about retirement planning.}
+
+\PY{c+c1}{\PYZsh{} Load environment variables}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{dotenv}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{load\PYZus{}dotenv}
+\PY{n}{load\PYZus{}dotenv}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Python native imports}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{os}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{sys}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{pprint}
+
+\PY{c+c1}{\PYZsh{} Third party library import}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{hub}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{prompts}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{PromptTemplate}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}community}\PY{n+nn}{.}\PY{n+nn}{document\PYZus{}loaders}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{PyPDFLoader}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}openai}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{ChatOpenAI}\PY{p}{,} \PY{n}{OpenAIEmbeddings}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{output\PYZus{}parsers}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{StrOutputParser}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{prebuilt}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{tools\PYZus{}condition}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{graph}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{END}\PY{p}{,} \PY{n}{StateGraph}\PY{p}{,} \PY{n}{START}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{vectorstores}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{InMemoryVectorStore}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{prebuilt}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{ToolNode}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain}\PY{n+nn}{.}\PY{n+nn}{document\PYZus{}loaders}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{WebBaseLoader}
+\PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USER\PYZus{}AGENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3}\PY{l+s+s1}{\PYZsq{}}
+\PY{n+nb}{\PYZus{}\PYZus{}import\PYZus{}\PYZus{}}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pysqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pysqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}chroma}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Chroma}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}text\PYZus{}splitters}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{RecursiveCharacterTextSplitter}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain}\PY{n+nn}{.}\PY{n+nn}{tools}\PY{n+nn}{.}\PY{n+nn}{retriever}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{create\PYZus{}retriever\PYZus{}tool}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{typing}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Annotated}\PY{p}{,} \PY{n}{Sequence}\PY{p}{,} \PY{n}{Literal}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{typing\PYZus{}extensions}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{TypedDict}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{messages}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{BaseMessage}\PY{p}{,} \PY{n}{HumanMessage}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{graph}\PY{n+nn}{.}\PY{n+nn}{message}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{add\PYZus{}messages}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{pydantic}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{BaseModel}\PY{p}{,} \PY{n}{Field}
+
+\PY{c+c1}{\PYZsh{} Assign experiment\PYZhy{}wide variables}
+\PY{n}{model\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Requirments 1 and 2}
+
+\PY{n}{urls} \PY{o}{=} \PY{p}{[}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.fidelity.com/mutual\PYZhy{}funds/why\PYZhy{}fidelity\PYZhy{}funds}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.fidelity.com/mutual\PYZhy{}funds/fidelity\PYZhy{}funds/overview}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.fidelity.com/viewpoints/retirement/how\PYZhy{}much\PYZhy{}do\PYZhy{}i\PYZhy{}need\PYZhy{}to\PYZhy{}retire}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+\PY{p}{]}
+
+
+\PY{c+c1}{\PYZsh{} Use WebBaseLoader from LangChain to load the Fidelity.com webpage into a document.}
+\PY{n}{docs} \PY{o}{=} \PY{p}{[}\PY{n}{WebBaseLoader}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{url} \PY{o+ow}{in} \PY{n}{urls}\PY{p}{]}
+\PY{n}{docs\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{sublist} \PY{o+ow}{in} \PY{n}{docs} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublist}\PY{p}{]}
+
+\PY{n}{text\PYZus{}splitter} \PY{o}{=} \PY{n}{RecursiveCharacterTextSplitter}\PY{o}{.}\PY{n}{from\PYZus{}tiktoken\PYZus{}encoder}\PY{p}{(}
+    \PY{n}{chunk\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{chunk\PYZus{}overlap}\PY{o}{=}\PY{l+m+mi}{50}
+\PY{p}{)}
+\PY{n}{doc\PYZus{}splits} \PY{o}{=} \PY{n}{text\PYZus{}splitter}\PY{o}{.}\PY{n}{split\PYZus{}documents}\PY{p}{(}\PY{n}{docs\PYZus{}list}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Requirement 3}
+
+\PY{c+c1}{\PYZsh{} Store the document in the Chroma vector store}
+\PY{n}{vector\PYZus{}store} \PY{o}{=} \PY{n}{Chroma}\PY{o}{.}\PY{n}{from\PYZus{}documents}\PY{p}{(}
+    \PY{n}{documents}\PY{o}{=}\PY{n}{doc\PYZus{}splits}\PY{p}{,}
+    \PY{n}{collection\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rag\PYZhy{}chroma}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{embedding}\PY{o}{=}\PY{n}{OpenAIEmbeddings}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Requirement 4}
+
+\PY{c+c1}{\PYZsh{} Create a retriever tool that will be used by the AI Agent to verify that the document is relevant to the prompt}
+\PY{n}{retriever} \PY{o}{=} \PY{n}{vector\PYZus{}store}\PY{o}{.}\PY{n}{as\PYZus{}retriever}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{retriever\PYZus{}tool} \PY{o}{=} \PY{n}{create\PYZus{}retriever\PYZus{}tool}\PY{p}{(}
+    \PY{n}{retriever}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve\PYZus{}fidelity\PYZus{}docs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Search Fidelity Knowledge base in the vector store and return information for:}
+\PY{l+s+sd}{        \PYZhy{} Calculating how much money a person needs to retire}
+\PY{l+s+sd}{        \PYZhy{} Mutual Fund names}
+\PY{l+s+sd}{        \PYZhy{} Types of funds\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}
+\PY{p}{)}
+
+\PY{n}{tools} \PY{o}{=} \PY{p}{[}\PY{n}{retriever\PYZus{}tool}\PY{p}{]}
+\PY{n}{tools}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+[Tool(name='retrieve\_fidelity\_docs', description='Search Fidelity Knowledge base
+in the vector store and return information for:\textbackslash{}n        - Calculating how much
+money a person needs to retire\textbackslash{}n        - Mutual Fund names\textbackslash{}n        - Types of
+funds', args\_schema=<class 'langchain\_core.tools.retriever.RetrieverInput'>,
+func=functools.partial(<function \_get\_relevant\_documents at 0x7fa09df57c40>,
+retriever=VectorStoreRetriever(tags=['Chroma', 'OpenAIEmbeddings'],
+vectorstore=<langchain\_chroma.vectorstores.Chroma object at 0x7fa09dd50790>,
+search\_kwargs=\{\}),
+document\_prompt=PromptTemplate(input\_variables=['page\_content'], input\_types=\{\},
+partial\_variables=\{\}, template='\{page\_content\}'), document\_separator='\textbackslash{}n\textbackslash{}n',
+response\_format='content'), coroutine=functools.partial(<function
+\_aget\_relevant\_documents at 0x7fa09df57d80>,
+retriever=VectorStoreRetriever(tags=['Chroma', 'OpenAIEmbeddings'],
+vectorstore=<langchain\_chroma.vectorstores.Chroma object at 0x7fa09dd50790>,
+search\_kwargs=\{\}),
+document\_prompt=PromptTemplate(input\_variables=['page\_content'], input\_types=\{\},
+partial\_variables=\{\}, template='\{page\_content\}'), document\_separator='\textbackslash{}n\textbackslash{}n',
+response\_format='content'))]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The following classes are used to maintain agent state}
+\PY{c+c1}{\PYZsh{} and a agent graph that maps the nodes and edges }
+
+\PY{k}{class}\PY{+w}{ }\PY{n+nc}{AgentState}\PY{p}{(}\PY{n}{TypedDict}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} The add\PYZus{}messages function defines how an update should be processed}
+    \PY{c+c1}{\PYZsh{} Default is to replace. add\PYZus{}messages says \PYZdq{}append\PYZdq{}}
+    \PY{n}{messages}\PY{p}{:} \PY{n}{Annotated}\PY{p}{[}\PY{n}{Sequence}\PY{p}{[}\PY{n}{BaseMessage}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}messages}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Edges}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{grade\PYZus{}documents}\PY{p}{(}\PY{n}{state}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{Literal}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Determines whether the retrieved documents are relevant to the question.}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{        str: A decision for whether the documents are relevant or not}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}CHECK RELEVANCE\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Data model}
+    \PY{k}{class}\PY{+w}{ }\PY{n+nc}{grade}\PY{p}{(}\PY{n}{BaseModel}\PY{p}{)}\PY{p}{:}
+\PY{+w}{        }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Binary score for relevance check.\PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{n}{binary\PYZus{}score}\PY{p}{:} \PY{n+nb}{str} \PY{o}{=} \PY{n}{Field}\PY{p}{(}\PY{n}{description}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relevance score }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{yes}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ or }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{no}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} LLM}
+\PY{c+c1}{\PYZsh{}    model = ChatOpenAI(temperature=0, model=\PYZdq{}gpt\PYZhy{}4\PYZhy{}0125\PYZhy{}preview\PYZdq{}, streaming=True)}
+    \PY{n}{model} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} LLM with tool and validation}
+    \PY{n}{llm\PYZus{}with\PYZus{}tool} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{with\PYZus{}structured\PYZus{}output}\PY{p}{(}\PY{n}{grade}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Prompt}
+    \PY{n}{prompt} \PY{o}{=} \PY{n}{PromptTemplate}\PY{p}{(}
+        \PY{n}{template}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{You are a financial advisor answering user question about retirement planning. }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        Here is the retrieved document: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}context\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        Here is the user question: }\PY{l+s+si}{\PYZob{}question\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant. }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        Give a binary score }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{yes}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ or }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{no}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ score to indicate whether the document is relevant to the question.}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}
+        \PY{n}{input\PYZus{}variables}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{context}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+    \PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Chain}
+    \PY{n}{chain} \PY{o}{=} \PY{n}{prompt} \PY{o}{|} \PY{n}{llm\PYZus{}with\PYZus{}tool}
+
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{last\PYZus{}message} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+
+    \PY{n}{question} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{content}
+    \PY{n}{docs} \PY{o}{=} \PY{n}{last\PYZus{}message}\PY{o}{.}\PY{n}{content}
+
+    \PY{n}{scored\PYZus{}result} \PY{o}{=} \PY{n}{chain}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{question}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{context}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{docs}\PY{p}{\PYZcb{}}\PY{p}{)}
+
+    \PY{n}{score} \PY{o}{=} \PY{n}{scored\PYZus{}result}\PY{o}{.}\PY{n}{binary\PYZus{}score}
+
+    \PY{k}{if} \PY{n}{score} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}DECISION: DOCS RELEVANT\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}
+
+    \PY{k}{else}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}DECISION: DOCS NOT RELEVANT\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}
+
+
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Nodes}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{agent}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Invokes the agent model to generate a response based on the current state. Given}
+\PY{l+s+sd}{    the question, it will decide to retrieve using the retriever tool, or simply end.}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{        dict: The updated state with the agent response appended to messages}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}CALL AGENT\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{model} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{bind\PYZus{}tools}\PY{p}{(}\PY{n}{tools}\PY{p}{)}
+    \PY{n}{response} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{n}{messages}\PY{p}{)}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{response}\PY{p}{]}\PY{p}{\PYZcb{}}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{rewrite}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Transform the query to produce a better question.}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{        dict: The updated state with re\PYZhy{}phrased question}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}TRANSFORM QUERY\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{question} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{content}
+
+    \PY{n}{msg} \PY{o}{=} \PY{p}{[}
+        \PY{n}{HumanMessage}\PY{p}{(}
+            \PY{n}{content}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }
+\PY{l+s+s2}{    Look at the input and try to reason about the underlying semantic intent / meaning. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }
+\PY{l+s+s2}{    Here is the initial question:}
+\PY{l+s+s2}{    }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{    }\PY{l+s+si}{\PYZob{}}\PY{n}{question}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }
+\PY{l+s+s2}{    }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{    Formulate an improved question: }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}
+        \PY{p}{)}
+    \PY{p}{]}
+
+    \PY{c+c1}{\PYZsh{} Grader}
+    \PY{n}{model} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+    \PY{n}{response} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{n}{msg}\PY{p}{)}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{response}\PY{p}{]}\PY{p}{\PYZcb{}}
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{generate}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Generate answer}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{         dict: The updated state with re\PYZhy{}phrased question}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}GENERATE\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{question} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{content}
+    \PY{n}{last\PYZus{}message} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+
+    \PY{n}{docs} \PY{o}{=} \PY{n}{last\PYZus{}message}\PY{o}{.}\PY{n}{content}
+
+    \PY{c+c1}{\PYZsh{} Prompt}
+    \PY{n}{prompt} \PY{o}{=} \PY{n}{hub}\PY{o}{.}\PY{n}{pull}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rlm/rag\PYZhy{}prompt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} LLM}
+    \PY{n}{llm} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Post\PYZhy{}processing}
+    \PY{k}{def}\PY{+w}{ }\PY{n+nf}{format\PYZus{}docs}\PY{p}{(}\PY{n}{docs}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{doc}\PY{o}{.}\PY{n}{page\PYZus{}content} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{docs}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Chain}
+    \PY{n}{rag\PYZus{}chain} \PY{o}{=} \PY{n}{prompt} \PY{o}{|} \PY{n}{llm} \PY{o}{|} \PY{n}{StrOutputParser}\PY{p}{(}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Run}
+    \PY{n}{response} \PY{o}{=} \PY{n}{rag\PYZus{}chain}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{context}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{docs}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{question}\PY{p}{\PYZcb{}}\PY{p}{)}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{response}\PY{p}{]}\PY{p}{\PYZcb{}}
+
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{20} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Prompt[rlm/rag\PYZhy{}prompt]}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{20}\PY{p}{)}
+\PY{n}{prompt} \PY{o}{=} \PY{n}{hub}\PY{o}{.}\PY{n}{pull}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rlm/rag\PYZhy{}prompt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{pretty\PYZus{}print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+********************Prompt[rlm/rag-prompt]********************
+================================\textbf{ Human Message
+}=================================
+
+You are an assistant for question-answering tasks. Use the following pieces of
+retrieved context to answer the question. If you don't know the answer, just say
+that you don't know. Use three sentences maximum and keep the answer concise.
+Question: \textcolor{ansi-yellow-intense}{\textbf{\{question\}}}
+Context: \textcolor{ansi-yellow-intense}{\textbf{\{context\}}}
+Answer:
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Requirment 5}
+
+\PY{c+c1}{\PYZsh{} Define a new graph}
+\PY{n}{workflow} \PY{o}{=} \PY{n}{StateGraph}\PY{p}{(}\PY{n}{AgentState}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Define the nodes we will cycle between}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{agent}\PY{p}{)}  \PY{c+c1}{\PYZsh{} agent}
+\PY{n}{retrieve} \PY{o}{=} \PY{n}{ToolNode}\PY{p}{(}\PY{p}{[}\PY{n}{retriever\PYZus{}tool}\PY{p}{]}\PY{p}{)}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{retrieve}\PY{p}{)}  \PY{c+c1}{\PYZsh{} retrieval}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rewrite}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Re\PYZhy{}writing the question}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{generate}
+\PY{p}{)}  \PY{c+c1}{\PYZsh{} Generating a response after we know the documents are relevant}
+\PY{c+c1}{\PYZsh{} Call agent node to decide to retrieve or not}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{n}{START}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Decide whether to retrieve}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}conditional\PYZus{}edges}\PY{p}{(}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{c+c1}{\PYZsh{} Assess agent decision}
+    \PY{n}{tools\PYZus{}condition}\PY{p}{,}
+    \PY{p}{\PYZob{}}
+        \PY{c+c1}{\PYZsh{} Translate the condition outputs to nodes in our graph}
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tools}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{n}{END}\PY{p}{:} \PY{n}{END}\PY{p}{,}
+    \PY{p}{\PYZcb{}}\PY{p}{,}
+\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Edges taken after the `action` node is called.}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}conditional\PYZus{}edges}\PY{p}{(}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{c+c1}{\PYZsh{} Assess agent decision}
+    \PY{n}{grade\PYZus{}documents}\PY{p}{,}
+\PY{p}{)}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{END}\PY{p}{)}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Compile}
+\PY{n}{graph} \PY{o}{=} \PY{n}{workflow}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} View the graph}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Image}\PY{p}{,} \PY{n}{display}
+\PY{n}{display}\PY{p}{(}\PY{n}{Image}\PY{p}{(}\PY{n}{graph}\PY{o}{.}\PY{n}{get\PYZus{}graph}\PY{p}{(}\PY{n}{xray}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{draw\PYZus{}mermaid\PYZus{}png}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_01_Geidel_files/Assignment_01_Geidel_7_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    \clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Assemble the function that will send a user message to the agent}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{query\PYZus{}agent}\PY{p}{(}\PY{n}{user\PYZus{}message}\PY{p}{)}\PY{p}{:}
+    \PY{n}{inputs} \PY{o}{=} \PY{p}{\PYZob{}}
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}
+            \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{system}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+s2}{                Instructions: }
+\PY{l+s+s2}{                        \PYZhy{} Check on the user question, query, or prompt content and if it is related to fidelity mutual fund, names of available mututal funds, or retirement }
+\PY{l+s+s2}{                            use the tools to retrieve data from your knowledge base in the vector store. }
+\PY{l+s+s2}{                        \PYZhy{} Provide detailed answer for questions related to retirement or mutual funds based on the knowledge base in the vector store.}
+\PY{l+s+s2}{                        \PYZhy{} For greeting type messaages, respond with message that you can help with questions related to Fidelity mutual funds and retirement planning,}
+\PY{l+s+s2}{                            otherwsie reply with the message: Sorry this is out of scope. You could use Google to search for this type of content/question}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}\PY{p}{,}
+            
+            \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{user\PYZus{}message}\PY{p}{)}\PY{p}{,}
+
+        \PY{p}{]}
+    \PY{p}{\PYZcb{}}
+    \PY{k}{for} \PY{n}{output} \PY{o+ow}{in} \PY{n}{graph}\PY{o}{.}\PY{n}{stream}\PY{p}{(}\PY{n}{inputs}\PY{p}{)}\PY{p}{:}
+        \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{output}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Output from node }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{key}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{value}\PY{p}{,} \PY{n}{indent}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{,} \PY{n}{depth}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} requirement \PYZsh{}6}
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What are the steps that I should take to determine how much I need to save for retirement planning}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='', additional\_kwargs=\{'tool\_calls':
+[\{'index': 0, 'id': 'call\_4s1cpKB0UkX6KXvyRH9If666', 'function': \{'arguments':
+'\{"query":"how much money a person needs to retire"\}', 'name':
+'retrieve\_fidelity\_docs'\}, 'type': 'function'\}]\},
+response\_metadata=\{'finish\_reason': 'tool\_calls', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-c9ad04d5-79e7-47f0-a31e-ebc47ba602e8-0', tool\_calls=[\{'name':
+'retrieve\_fidelity\_docs', 'args': \{'query': 'how much money a person needs to
+retire'\}, 'id': 'call\_4s1cpKB0UkX6KXvyRH9If666', 'type': 'tool\_call'\}])]\}
+'\textbackslash{}n---\textbackslash{}n'
+---CHECK RELEVANCE---
+---DECISION: DOCS RELEVANT---
+"Output from node 'retrieve':"
+'---'
+\{ 'messages': [ ToolMessage(content="Consider some hypothetical examples (see
+graphic). Max plans to delay retirement until age 70, so he will need to have
+saved 8x his final income to sustain his preretirement lifestyle. Amy wants to
+retire at age 67, so she will need to have saved 10x her preretirement income.
+John plans to retire at age 65, so he would need to have saved at least 12x his
+preretirement income.\textbackslash{}n\textbackslash{}nOur savings factors are based on the assumption that a
+person saves 15\% of their income annually beginning at age 25 (which includes
+any employer match), invests more than 50\% on average of their savings in stocks
+over their lifetime, retires at age 67, and plans to maintain their
+preretirement lifestyle in retirement (see footnote 1 for more
+details).\textbackslash{}n\textbackslash{}nBased on those assumptions, we estimate that saving 10x (times)
+your preretirement income by age 67, together with other steps, should help
+ensure that you have enough income to maintain your current lifestyle in
+retirement. That 10x goal may seem ambitious. But you have many years to get
+there. To help you stay on track, we suggest these age-based milestones: Aim to
+save at least 1x your income by age 30, 3x by 40, 6x by 50,\textbackslash{}n\textbackslash{}nLet's look at
+some hypothetical investors who are planning to retire at 67. Joe is planning to
+downsize and live frugally in retirement, so he expects his expenses to be
+lower. His savings factor might be closer to 8x than 10x. Elizabeth is planning
+to retire at age 67 and her goal is to maintain her lifestyle in retirement, so
+her savings factor is 10x. Sean sees retirement as an opportunity to travel
+extensively, so it may make sense for him to save more and",
+name='retrieve\_fidelity\_docs', id='83bca74d-095b-45c3-a739-108a57536c41',
+tool\_call\_id='call\_4s1cpKB0UkX6KXvyRH9If666')]\}
+'\textbackslash{}n---\textbackslash{}n'
+---GENERATE---
+"Output from node 'generate':"
+'---'
+\{ 'messages': [ "To maintain your preretirement lifestyle in retirement, it's "
+                'generally recommended to save 10 times your preretirement '
+                'income by age 67. This goal is based on the assumption of '
+                'saving 15\% of your income annually starting at age 25. '
+                'Age-based milestones suggest aiming for 1x your income by age '
+                '30, 3x by age 40, and 6x by age 50 to stay on track.']\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} requirement \PYZsh{}7}
+
+\PY{c+c1}{\PYZsh{} I am not a financial planner but this advice seems sound. The agent recommends a }
+\PY{c+c1}{\PYZsh{} decision tree that can be used to determine a quantitive answer for the question}
+\PY{c+c1}{\PYZsh{} \PYZdq{}How much do I need to retire?\PYZdq{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} requirement \PYZsh{}8}
+
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What strategies should someone take when behind on their retirement milestones?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content="I can help with questions related to Fidelity
+mutual funds and retirement planning. If you're looking for strategies to catch
+up on retirement milestones, here are some general tips:\textbackslash{}n\textbackslash{}n1. **Assess Your
+Current Situation**: Take a close look at your current savings, investments, and
+retirement accounts. Understand how much you have saved and how much you need to
+retire comfortably.\textbackslash{}n\textbackslash{}n2. **Increase Contributions**: If possible, increase your
+contributions to retirement accounts. Consider maxing out contributions to
+employer-sponsored plans like a 401(k) or an IRA.\textbackslash{}n\textbackslash{}n3. **Catch-Up
+Contributions**: If you are age 50 or older, take advantage of catch-up
+contributions that allow you to contribute more to your retirement
+accounts.\textbackslash{}n\textbackslash{}n4. **Create a Budget**: Review your expenses and create a budget
+that allows you to allocate more funds toward retirement savings. Cut
+unnecessary expenses where possible.\textbackslash{}n\textbackslash{}n5. **Consider Additional Income
+Sources**: Look for ways to increase your income, such as taking on a part-time
+job, freelancing, or selling unused items.\textbackslash{}n\textbackslash{}n6. **Invest Wisely**: Ensure that
+your investments are aligned with your retirement goals. Consider a diversified
+portfolio that balances risk and growth potential.\textbackslash{}n\textbackslash{}n7. **Delay Retirement**:
+If feasible, consider delaying your retirement age. Working longer can increase
+your savings and reduce the number of years you need to draw from your
+retirement funds.\textbackslash{}n\textbackslash{}n8. **Consult a Financial Advisor**: A financial advisor can
+provide personalized advice based on your specific situation and help you create
+a plan to get back on track.\textbackslash{}n\textbackslash{}nIf you have specific questions about Fidelity
+mutual funds or retirement planning, feel free to ask!", additional\_kwargs=\{\},
+response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-47220c96-088b-4719-8764-1b241a224edf-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} This response provides some specific steps for catching up with retirement milestones!}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} requirement 9}
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{why my laptop is overheating after 2 hours of usage?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='Sorry this is out of scope. You could use
+Google to search for this type of content/question.', additional\_kwargs=\{\},
+response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-0772a5c2-722b-4346-a1ac-b506c71fa2fa-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{what mutual funds good for cookies?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='Sorry this is out of scope. You could use
+Google to search for this type of content/question.', additional\_kwargs=\{\},
+response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-c6b68c68-c899-43dc-b195-cf249b25a755-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{what is the current weather conditions in Chicago today?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='Sorry this is out of scope. You could use
+Google to search for this type of content/question.', additional\_kwargs=\{\},
+response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-31a9786c-bedd-4d18-bc98-32801b667454-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Hello there}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='Hello! I can help you with questions related
+to Fidelity mutual funds and retirement planning. How can I assist you today?',
+additional\_kwargs=\{\}, response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\}, id='run-
+be384568-6100-46e4-850d-5b652abc8af3-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{what are the names of mutual funds from Fidelity?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='', additional\_kwargs=\{'tool\_calls':
+[\{'index': 0, 'id': 'call\_Zv74q8rph0R88eunsSXHwXyH', 'function': \{'arguments':
+'\{"query":"names of mutual funds from Fidelity"\}', 'name':
+'retrieve\_fidelity\_docs'\}, 'type': 'function'\}]\},
+response\_metadata=\{'finish\_reason': 'tool\_calls', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-2e92958f-7fd3-4eb1-b4d9-58aff9806275-0', tool\_calls=[\{'name':
+'retrieve\_fidelity\_docs', 'args': \{'query': 'names of mutual funds from
+Fidelity'\}, 'id': 'call\_Zv74q8rph0R88eunsSXHwXyH', 'type': 'tool\_call'\}])]\}
+'\textbackslash{}n---\textbackslash{}n'
+---CHECK RELEVANCE---
+---DECISION: DOCS NOT RELEVANT---
+no
+"Output from node 'retrieve':"
+'---'
+\{ 'messages': [ ToolMessage(content='Fidelity® Magellan® Fund
+(FMAGX)\textbackslash{}n\textbackslash{}nFidelity® New Millennium Fund (FMILX)\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}nLarge
+Growth\textbackslash{}n\textbackslash{}nFidelity® Blue Chip Growth Fund (FBGRX)\textbackslash{}n\textbackslash{}nFidelity® Focused Stock
+Fund (FTQGX)\textbackslash{}n\textbackslash{}nFidelity® Fund (FFIDX)\textbackslash{}n\textbackslash{}nFidelity® Growth Discovery Fund
+(FDSVX)\textbackslash{}n\textbackslash{}nFidelity® Growth Company Fund (FDGRX)\textbackslash{}n\textbackslash{}nFidelity® Growth \& Income
+Portfolio Fund (FGRIX)\textbackslash{}n\textbackslash{}nFidelity® Dividend Growth Fund
+(FDGFX)\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}nLarge Blend\textbackslash{}n\textbackslash{}nFidelity® Hedged Equity Fund
+(FEQHX)\textbackslash{}n\textbackslash{}nFidelity®\textbackslash{}xa0Sustainable U.S. Equity Fund (FSEBX)\textbackslash{}n\textbackslash{}nFidelity® US Low
+Volatility Equity Fund (FULVX)\textbackslash{}n\textbackslash{}nFidelity®\textbackslash{}xa0Sustainable U.S. Equity Fund
+(FSEBX)\textbackslash{}n\textbackslash{}nFidelity® US Low Volatility Equity Fund (FULVX)\textbackslash{}n\textbackslash{}nFidelity®
+Disciplined Equity Fund (FDEQX)\textbackslash{}n\textbackslash{}nFidelity® Large-Cap Stock Fund
+(FLCSX)\textbackslash{}n\textbackslash{}nFidelity® Mega-Cap Stock Fund (FGRTX)\textbackslash{}nSmall/Mid Blend\textbackslash{}n\textbackslash{}nFidelity®
+Michigan Municipal Income Fund (FMHTX)\textbackslash{}n\textbackslash{}nFidelity® Minnesota Municipal Income
+Fund (FIMIX)\textbackslash{}n\textbackslash{}nFidelity® New Jersey Municipal Income Fund (FNJHX)\textbackslash{}n\textbackslash{}nFidelity®
+New York Municipal Income Fund (FTFMX)\textbackslash{}n\textbackslash{}nFidelity® Ohio Municipal Income Fund
+(FOHFX)\textbackslash{}n\textbackslash{}nFidelity® Pennsylvania Municipal Income Fund
+(FPXTX)\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}n\textbackslash{}nResearch all Fidelity fixed income funds',
+name='retrieve\_fidelity\_docs', id='3d38377c-18bd-4f27-b14d-c84f8ab98b0a',
+tool\_call\_id='call\_Zv74q8rph0R88eunsSXHwXyH')]\}
+'\textbackslash{}n---\textbackslash{}n'
+---TRANSFORM QUERY---
+"Output from node 'rewrite':"
+'---'
+\{ 'messages': [ AIMessage(content='What are some Fidelity mutual funds that I
+can consider for my retirement planning?', additional\_kwargs=\{\},
+response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_dbaca60df0'\},
+id='run-91aa9e44-e731-40bb-b813-8df3b362639d-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content="Here are some of the names of mutual funds
+offered by Fidelity that you might consider:\textbackslash{}n\textbackslash{}n\#\#\# Large Growth Funds\textbackslash{}n-
+**Fidelity® Magellan® Fund (FMAGX)**\textbackslash{}n- **Fidelity® New Millennium Fund
+(FMILX)**\textbackslash{}n- **Fidelity® Blue Chip Growth Fund (FBGRX)**\textbackslash{}n- **Fidelity® Focused
+Stock Fund (FTQGX)**\textbackslash{}n- **Fidelity® Fund (FFIDX)**\textbackslash{}n- **Fidelity® Growth
+Discovery Fund (FDSVX)**\textbackslash{}n- **Fidelity® Growth Company Fund (FDGRX)**\textbackslash{}n-
+**Fidelity® Growth \& Income Portfolio Fund (FGRIX)**\textbackslash{}n- **Fidelity® Dividend
+Growth Fund (FDGFX)**\textbackslash{}n\textbackslash{}n\#\#\# Large Blend Funds\textbackslash{}n- **Fidelity® Hedged Equity Fund
+(FEQHX)**\textbackslash{}n- **Fidelity® Sustainable U.S. Equity Fund (FSEBX)**\textbackslash{}n- **Fidelity®
+US Low Volatility Equity Fund (FULVX)**\textbackslash{}n- **Fidelity® Disciplined Equity Fund
+(FDEQX)**\textbackslash{}n- **Fidelity® Large-Cap Stock Fund (FLCSX)**\textbackslash{}n- **Fidelity® Mega-Cap
+Stock Fund (FGRTX)**\textbackslash{}n\textbackslash{}n\#\#\# Small/Mid Blend Funds\textbackslash{}n- **Fidelity® Michigan
+Municipal Income Fund (FMHTX)**\textbackslash{}n- **Fidelity® Minnesota Municipal Income Fund
+(FIMIX)**\textbackslash{}n- **Fidelity® New Jersey Municipal Income Fund (FNJHX)**\textbackslash{}n-
+**Fidelity® New York Municipal Income Fund (FTFMX)**\textbackslash{}n- **Fidelity® Ohio
+Municipal Income Fund (FOHFX)**\textbackslash{}n- **Fidelity® Pennsylvania Municipal Income
+Fund (FPXTX)**\textbackslash{}n\textbackslash{}nThese funds cover a range of investment strategies and risk
+profiles, so it's important to consider your individual retirement goals and
+risk tolerance when selecting funds. If you need more specific information or
+guidance on retirement planning, feel free to ask!", additional\_kwargs=\{\},
+response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-1982b0e5-38a4-44ff-bde1-086dc59d8b59-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{what are the names of mutual funds from Schwab?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='Sorry this is out of scope. You could use
+Google to search for this type of content/question.', additional\_kwargs=\{\},
+response\_metadata=\{'finish\_reason': 'stop', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_129a36352a'\},
+id='run-90f85e32-4ff8-44af-b692-6fdc3c75a44f-0')]\}
+'\textbackslash{}n---\textbackslash{}n'
+    \end{Verbatim}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{21}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} requirement 10}
+
+\PY{n}{file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{src}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FFFGX.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Load the PDF}
+\PY{n}{loader} \PY{o}{=} \PY{n}{PyPDFLoader}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Store pages}
+\PY{n}{pages} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+\PY{k}{async} \PY{k}{for} \PY{n}{page} \PY{o+ow}{in} \PY{n}{loader}\PY{o}{.}\PY{n}{alazy\PYZus{}load}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pages}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{page}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Loaded }\PY{l+s+si}{\PYZob{}}\PY{n+nb}{len}\PY{p}{(}\PY{n}{pages}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ pages successfully!}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Loaded 6 pages successfully!
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{22}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{pages}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{metadata}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{pages}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}\PY{o}{.}\PY{n}{page\PYZus{}content}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+\{'producer': '', 'creator': 'Quadient\textasciitilde{}Inspire\textasciitilde{}16.0.716.7', 'creationdate':
+'2024-12-21T04:30:27+00:00', 'title': 'MFL\_Doc', 'source': 'src/FFFGX.pdf',
+'total\_pages': 6, 'page': 1, 'page\_label': '2'\}
+
+Allocation
+Glossary Of Terms
+Beta: A measure of a portfolio's sensitivity to market movements (as represented
+by a benchmark index). The benchmark index has a beta of 1.0. A beta of
+more (less) than 1.0 indicates that a fund's historical returns have fluctuated
+more (less) than the benchmark index. Beta is a more reliable measure of
+volatility when used in combination with a high R2 which indicates a high
+correlation between the movements in a fund's returns and movements in a
+benchmark index.
+Distribution and/or service fee(12b-1) Fees: The 12b-1 fee represents the
+maximum annual charge deducted from fund assets to pay for distribution and
+marketing costs. Total 12b-1 fees, excluding loads, are capped at 1.00\% of
+average net assets annually. Of this, the distribution and marketing portion of
+the fee may account for up to 0.75\%. The other portion of the overall 12b-1 fee,
+the service fee, may account for up to 0.25\%.
+Expense Ratio (Gross): Expense ratio is a measure of what it costs to operate an
+investment, expressed as a percentage of its assets, as a dollar amount, or
+in basis points. These are costs the investor pays through a reduction in the
+investment's rate of return. For a mutual fund, the gross expense ratio is the
+total annual fund or class operating expenses directly paid by the fund from the
+fund's most recent prospectus (before waivers or reimbursements). This
+ratio also includes Acquired Fund Fees and Expenses, which are expenses
+indirectly incurred by a fund through its ownership of shares in other
+investment
+companies. If the investment option is not a mutual fund, the expense ratio may
+be calculated using methodologies that differ from those used for mutual
+funds.
+Expense Ratio (Net): Expense ratio is a measure of what it costs to operate an
+investment, expressed as a percentage of its assets, as a dollar amount, or in
+basis points. These are costs the investor pays through a reduction in the
+investment's rate of return. For a mutual fund, the net expense ratio is the
+total
+annual fund or class operating expenses directly paid by the fund from the
+fund's most recent prospectus, after any fee waiver and/or expense
+reimbursements that will reduce any fund operating expenses. This ratio also
+includes Acquired Fund Fees and Expenses, which are expenses indirectly
+incurred by a fund through its ownership of shares in other investment
+companies. This number does not include any fee waiver arrangement or expense
+reimbursement that may be terminated without agreement of the fund's board of
+trustees during the one-year period. If the investment option is not a
+mutual fund, the expense ratio may be calculated using methodologies that differ
+from those used for mutual funds.
+Fidelity Freedom 2045 Composite Index: Fidelity Freedom 2045 Composite Index is
+a customized blend of the following unmanaged indexes: Bloomberg
+Global Aggregate Treasury ex USD, ex Emerging Markets, RIC Capped, Float
+Adjusted Index (Hedged USD), Bloomberg U.S. 3-6 Month Treasury Bill Index,
+Bloomberg U.S. Long Treasury Bond Index, Bloomberg U.S. Aggregate Bond Index,
+Bloomberg U.S. Treasury Inflation-Protected Securities (TIPS) 0-5 Years
+Index, Bloomberg U.S. Treasury Inflation-Protected Securities (TIPS) 5+ Years
+Index, Dow Jones U.S. Total Stock Market Index, and MSCI All Country World
+ex U.S. Index (Net MA). The index weightings are adjusted monthly to reflect
+each fund's changing asset allocations. The compositions differed in periods
+prior to June 1, 2022.
+Net Asset Value (NAV): The dollar value of one mutual fund's share, excluding
+any sales charges or redemption fees. The NAV is calculated by subtracting
+liabilities from the value of a fund's total assets and dividing it by the
+number of fund's shares outstanding.
+Portfolio Net Assets (\$M): The difference between a portfolio's total assets and
+liabilities, including all share classes of the fund.
+R2: A measurement of how closely the portfolio's performance correlates with the
+performance of the fund's primary benchmark index or equivalent. R 2 is
+a proportion which ranges between 0.00 and 1.00. An R2 of 1.00 indicates perfect
+correlation to the benchmark index, that is, all of the portfolio's
+fluctuations are explained by performance fluctuations of the index, while an R2
+of 0.00 indicates no correlation. Therefore, the lower the R2, the more the
+fund's performance is affected by factors other than the market as measured by
+that benchmark index. An R 2 value of less than 0.5 indicates that the
+Annualized Alpha and Beta are not reliable performance statistics.
+S\&P 500 Index: S\&P 500 Index is a market capitalization-weighted index of 500
+common stocks chosen for market size, liquidity, and industry group
+representation to represent U.S. equity performance.
+Share Class Net Assets (\$M): The difference between the total assets and
+liabilities of a single share class of a fund.
+Sharpe Ratio: The Sharpe ratio is a measure of historical risk-adjusted
+performance.  It is calculated by dividing the fund's excess returns (the fund's
+average annual return for the period minus the 3-month "risk free" return rate)
+and dividing it by the standard deviation of the fund's returns. The higher
+the ratio, the better the fund's return per unit of risk. The three month "risk
+free" rate used is the 90-day Treasury Bill rate.
+Standard Deviation: Statistical measure of how much a return varies over an
+extended period of time. The more variable the returns, the larger the
+standard deviation. Investors may examine historical standard deviation in
+conjunction with historical returns to decide whether an investment's volatility
+would have been acceptable given the returns it would have produced. A higher
+standard deviation indicates a wider dispersion of past returns and thus
+greater historical volatility. Standard deviation does not indicate how an
+investment actually performed, but it does indicate the volatility of its
+returns over
+time. Standard deviation is annualized. The returns used for this calculation
+are not load-adjusted.
+Target-Date 2045: Target-date portfolios provide diversified exposure to stocks,
+bonds, and cash for those investors who have a specific date in mind (in
+this case, the years 2041-2045) for retirement. These portfolios aim to provide
+investors with an optimal level of return and risk, based solely on the target
+date. Management adjusts the allocation among asset classes to more-conservative
+mixes as the target date approaches, following a preset glide path. A
+target-date portfolio is part of a series of funds offering multiple retirement
+dates to investors.
+Turnover Rate: The lesser of amounts of purchases or sales of long-term
+portfolio securities divided by the monthly average value of long-term
+securities
+owned by the fund.
+Important Information
+0.
+Before investing, consider the investment objectives, risks, charges and
+expenses of the fund or annuity and its investment options. Contact Fidelity
+for a free prospectus and, if available, summary prospectus containing this
+information. Read it carefully.
+Page 4 of 6
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{23}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{vector\PYZus{}store} \PY{o}{=} \PY{n}{InMemoryVectorStore}\PY{o}{.}\PY{n}{from\PYZus{}documents}\PY{p}{(}\PY{n}{pages}\PY{p}{,} \PY{n}{OpenAIEmbeddings}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n}{docs} \PY{o}{=} \PY{n}{vector\PYZus{}store}\PY{o}{.}\PY{n}{similarity\PYZus{}search}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What is the fund manager?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{k}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+\PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{docs}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Page }\PY{l+s+si}{\PYZob{}}\PY{n}{doc}\PY{o}{.}\PY{n}{metadata}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{page}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZob{}}\PY{n}{doc}\PY{o}{.}\PY{n}{page\PYZus{}content}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{1000}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Page 2: Allocation
+Fund Overview (continued)
+Additional Disclosures
+This description is only intended to provide a brief overview of the mutual
+fund. Read the fund's
+prospectus for more detailed information about the fund.
+Page 3 of 6
+
+Page 3: Allocation
+Glossary Of Terms
+Beta: A measure of a portfolio's sensitivity to market movements (as represented
+by a benchmark index). The benchmark index has a beta of 1.0. A beta of
+more (less) than 1.0 indicates that a fund's historical returns have fluctuated
+more (less) than the benchmark index. Beta is a more reliable measure of
+volatility when used in combination with a high R2 which indicates a high
+correlation between the movements in a fund's returns and movements in a
+benchmark index.
+Distribution and/or service fee(12b-1) Fees: The 12b-1 fee represents the
+maximum annual charge deducted from fund assets to pay for distribution and
+marketing costs. Total 12b-1 fees, excluding loads, are capped at 1.00\% of
+average net assets annually. Of this, the distribution and marketing portion of
+the fee may account for up to 0.75\%. The other portion of the overall 12b-1 fee,
+the service fee, may account for up to 0.25\%.
+Expense Ratio (Gross): Expense ratio is a measure of what it cos
+
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{24}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{base64}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{io}
+
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{fitz}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{PIL}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Image}
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{pdf\PYZus{}page\PYZus{}to\PYZus{}base64}\PY{p}{(}\PY{n}{pdf\PYZus{}path}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{n}{page\PYZus{}number}\PY{p}{:} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pdf\PYZus{}document} \PY{o}{=} \PY{n}{fitz}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{pdf\PYZus{}path}\PY{p}{)}
+    \PY{n}{page} \PY{o}{=} \PY{n}{pdf\PYZus{}document}\PY{o}{.}\PY{n}{load\PYZus{}page}\PY{p}{(}\PY{n}{page\PYZus{}number} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} input is one\PYZhy{}indexed}
+    \PY{n}{pix} \PY{o}{=} \PY{n}{page}\PY{o}{.}\PY{n}{get\PYZus{}pixmap}\PY{p}{(}\PY{p}{)}
+    \PY{n}{img} \PY{o}{=} \PY{n}{Image}\PY{o}{.}\PY{n}{frombytes}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RGB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{[}\PY{n}{pix}\PY{o}{.}\PY{n}{width}\PY{p}{,} \PY{n}{pix}\PY{o}{.}\PY{n}{height}\PY{p}{]}\PY{p}{,} \PY{n}{pix}\PY{o}{.}\PY{n}{samples}\PY{p}{)}
+
+    \PY{n}{buffer} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{BytesIO}\PY{p}{(}\PY{p}{)}
+    \PY{n}{img}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{buffer}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PNG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{k}{return} \PY{n}{base64}\PY{o}{.}\PY{n}{b64encode}\PY{p}{(}\PY{n}{buffer}\PY{o}{.}\PY{n}{getvalue}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{25}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Image} \PY{k}{as} \PY{n}{IPImage}
+\PY{n}{base64\PYZus{}image} \PY{o}{=} \PY{n}{pdf\PYZus{}page\PYZus{}to\PYZus{}base64}\PY{p}{(}\PY{n}{file\PYZus{}path}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{display}\PY{p}{(}\PY{n}{IPImage}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{base64}\PY{o}{.}\PY{n}{b64decode}\PY{p}{(}\PY{n}{base64\PYZus{}image}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_01_Geidel_files/Assignment_01_Geidel_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    \clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{26}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Requirement 11}
+
+\PY{c+c1}{\PYZsh{} Grab a chat client to test the PDF context}
+\PY{n}{llm} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}name}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} lets set up a function to query this LLM in a DRY fashion}
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{query\PYZus{}llm}\PY{p}{(}\PY{n}{query}\PY{p}{)}\PY{p}{:}
+    \PY{n}{message} \PY{o}{=} \PY{n}{HumanMessage}\PY{p}{(}
+        \PY{n}{content}\PY{o}{=}\PY{p}{[}
+            \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{query}\PY{p}{\PYZcb{}}\PY{p}{,}
+            \PY{p}{\PYZob{}}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image\PYZus{}url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image\PYZus{}url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data:image/jpeg;base64,}\PY{l+s+si}{\PYZob{}}\PY{n}{base64\PYZus{}image}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+            \PY{p}{\PYZcb{}}\PY{p}{,}
+        \PY{p}{]}\PY{p}{,}
+    \PY{p}{)}
+    \PY{n}{response} \PY{o}{=} \PY{n}{llm}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{[}\PY{n}{message}\PY{p}{]}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{n}{response}\PY{o}{.}\PY{n}{content}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{27}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}llm}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What is the name of this fund?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The name of the fund is the **Fidelity Freedom® 2045 Fund (FFFGX)**.
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{28}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}llm}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Who is the fund manager?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The fund managers for the Fidelity Freedom® 2045 Fund (FFFGX) are Andrew J.
+Dieford (Co-Manager since June 21, 2011) and Brett F. Sumners (Co-Manager).
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{29}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}llm}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What is the calendar year return for 2022 for this fund and S\PYZam{}P 500}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The calendar year return for 2022 is as follows:
+
+- **Fidelity Freedom® 2045 Fund (FFFGX)**: -18.26\%
+- **S\&P 500**: -18.11\%
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{30}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}llm}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What is the Portfolio Net Assets}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+The Portfolio Net Assets of the Fidelity Freedom® 2045 Fund (FFFGX) as of
+11/30/2024 are \$21,463,148, and it has Share Class Net Assets of \$4,597,927 as
+of the same date.
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
