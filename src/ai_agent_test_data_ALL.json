@@ -1,0 +1,347 @@
+{
+  "OrderShipping": [
+    {
+      "OrderID": "ORD001",
+      "CustomerName": "Alice Smith",
+      "OrderDate": "2025-04-01",
+      "ShipmentDate": "2025-04-02",
+      "Status": "Shipped",
+      "Items": 3,
+      "TotalAmount": 150.75
+    },
+    {
+      "OrderID": "ORD002",
+      "CustomerName": "Bob Johnson",
+      "OrderDate": "2025-04-01",
+      "ShipmentDate": "2025-04-03",
+      "Status": "Processing",
+      "Items": 2,
+      "TotalAmount": 89.99
+    },
+    {
+      "OrderID": "ORD003",
+      "CustomerName": "Carla Ruiz",
+      "OrderDate": "2025-04-01",
+      "ShipmentDate": "2025-04-02",
+      "Status": "Shipped",
+      "Items": 5,
+      "TotalAmount": 240.5
+    },
+    {
+      "OrderID": "ORD004",
+      "CustomerName": "David Lee",
+      "OrderDate": "2025-04-02",
+      "ShipmentDate": "2025-04-04",
+      "Status": "Pending",
+      "Items": 1,
+      "TotalAmount": 45.0
+    },
+    {
+      "OrderID": "ORD005",
+      "CustomerName": "Ella Tran",
+      "OrderDate": "2025-04-02",
+      "ShipmentDate": "2025-04-03",
+      "Status": "Shipped",
+      "Items": 4,
+      "TotalAmount": 125.3
+    },
+    {
+      "OrderID": "ORD006",
+      "CustomerName": "Frank Moore",
+      "OrderDate": "2025-04-02",
+      "ShipmentDate": "2025-04-03",
+      "Status": "Cancelled",
+      "Items": 2,
+      "TotalAmount": 75.6
+    },
+    {
+      "OrderID": "ORD007",
+      "CustomerName": "Grace Kim",
+      "OrderDate": "2025-04-03",
+      "ShipmentDate": "2025-04-04",
+      "Status": "Shipped",
+      "Items": 3,
+      "TotalAmount": 99.99
+    },
+    {
+      "OrderID": "ORD008",
+      "CustomerName": "Henry Cho",
+      "OrderDate": "2025-04-03",
+      "ShipmentDate": "2025-04-05",
+      "Status": "Processing",
+      "Items": 6,
+      "TotalAmount": 310.4
+    },
+    {
+      "OrderID": "ORD009",
+      "CustomerName": "Ivy Patel",
+      "OrderDate": "2025-04-03",
+      "ShipmentDate": "2025-04-04",
+      "Status": "Shipped",
+      "Items": 2,
+      "TotalAmount": 60.0
+    },
+    {
+      "OrderID": "ORD010",
+      "CustomerName": "Jackie Wright",
+      "OrderDate": "2025-04-04",
+      "ShipmentDate": "2025-04-06",
+      "Status": "Pending",
+      "Items": 3,
+      "TotalAmount": 130.25
+    }
+  ],
+  "Product": [
+    {
+      "ProductID": "P001",
+      "ProductName": "Resistance Band",
+      "Category": "Fitness",
+      "Price": 25.99,
+      "StockQty": 150
+    },
+    {
+      "ProductID": "P002",
+      "ProductName": "Yoga Mat",
+      "Category": "Fitness",
+      "Price": 35.0,
+      "StockQty": 120
+    },
+    {
+      "ProductID": "P003",
+      "ProductName": "Protein Powder",
+      "Category": "Nutrition",
+      "Price": 55.5,
+      "StockQty": 80
+    },
+    {
+      "ProductID": "P004",
+      "ProductName": "Treadmill",
+      "Category": "Equipment",
+      "Price": 599.99,
+      "StockQty": 15
+    },
+    {
+      "ProductID": "P005",
+      "ProductName": "Water Bottle",
+      "Category": "Accessories",
+      "Price": 15.0,
+      "StockQty": 300
+    },
+    {
+      "ProductID": "P006",
+      "ProductName": "Running Shoes",
+      "Category": "Apparel",
+      "Price": 75.0,
+      "StockQty": 50
+    },
+    {
+      "ProductID": "P007",
+      "ProductName": "Jump Rope",
+      "Category": "Fitness",
+      "Price": 12.0,
+      "StockQty": 200
+    },
+    {
+      "ProductID": "P008",
+      "ProductName": "Fitness Tracker",
+      "Category": "Electronics",
+      "Price": 99.99,
+      "StockQty": 60
+    },
+    {
+      "ProductID": "P009",
+      "ProductName": "Gym Bag",
+      "Category": "Accessories",
+      "Price": 45.0,
+      "StockQty": 90
+    },
+    {
+      "ProductID": "P010",
+      "ProductName": "Massage Gun",
+      "Category": "Recovery",
+      "Price": 120.0,
+      "StockQty": 25
+    },
+    {
+      "ProductID": "P011",
+      "ProductName": "Smart Scale",
+      "Category": "Electronics",
+      "Price": 49.99,
+      "StockQty": 40
+    },
+    {
+      "ProductID": "P012",
+      "ProductName": "Pre-Workout Drink",
+      "Category": "Nutrition",
+      "Price": 30.0,
+      "StockQty": 100
+    },
+    {
+      "ProductID": "P013",
+      "ProductName": "Kettlebell",
+      "Category": "Equipment",
+      "Price": 40.0,
+      "StockQty": 70
+    },
+    {
+      "ProductID": "P014",
+      "ProductName": "Foam Roller",
+      "Category": "Recovery",
+      "Price": 20.0,
+      "StockQty": 110
+    },
+    {
+      "ProductID": "P015",
+      "ProductName": "Cycling Gloves",
+      "Category": "Apparel",
+      "Price": 18.0,
+      "StockQty": 140
+    }
+  ],
+  "Marketing": [
+    {
+      "CampaignID": "C001",
+      "CampaignName": "Spring Promo",
+      "StartDate": "2025-03-15",
+      "EndDate": "2025-04-15",
+      "TargetAudience": "New Users",
+      "ClickRate": 4.5,
+      "ConversionRate": 2.1
+    },
+    {
+      "CampaignID": "C002",
+      "CampaignName": "Summer Blast",
+      "StartDate": "2025-06-01",
+      "EndDate": "2025-06-30",
+      "TargetAudience": "All Users",
+      "ClickRate": 5.2,
+      "ConversionRate": 2.8
+    },
+    {
+      "CampaignID": "C003",
+      "CampaignName": "Black Friday",
+      "StartDate": "2025-11-20",
+      "EndDate": "2025-11-27",
+      "TargetAudience": "Inactive Users",
+      "ClickRate": 7.1,
+      "ConversionRate": 3.5
+    },
+    {
+      "CampaignID": "C004",
+      "CampaignName": "Holiday Deal",
+      "StartDate": "2025-12-01",
+      "EndDate": "2025-12-31",
+      "TargetAudience": "Premium Members",
+      "ClickRate": 6.0,
+      "ConversionRate": 3.0
+    },
+    {
+      "CampaignID": "C005",
+      "CampaignName": "Referral Bonus",
+      "StartDate": "2025-02-01",
+      "EndDate": "2025-03-01",
+      "TargetAudience": "Existing Users",
+      "ClickRate": 3.9,
+      "ConversionRate": 1.8
+    }
+  ],
+  "MembershipFraud": [
+    {
+      "UserID": "U001",
+      "SignupDate": "2025-01-05",
+      "MembershipType": "Premium",
+      "LoginFrequency": 15,
+      "FlaggedFraud": false,
+      "ReportedIssues": 0
+    },
+    {
+      "UserID": "U002",
+      "SignupDate": "2025-01-10",
+      "MembershipType": "Free",
+      "LoginFrequency": 2,
+      "FlaggedFraud": true,
+      "ReportedIssues": 3
+    },
+    {
+      "UserID": "U003",
+      "SignupDate": "2025-02-20",
+      "MembershipType": "Trial",
+      "LoginFrequency": 5,
+      "FlaggedFraud": false,
+      "ReportedIssues": 1
+    },
+    {
+      "UserID": "U004",
+      "SignupDate": "2025-03-12",
+      "MembershipType": "Premium",
+      "LoginFrequency": 12,
+      "FlaggedFraud": false,
+      "ReportedIssues": 0
+    },
+    {
+      "UserID": "U005",
+      "SignupDate": "2025-03-15",
+      "MembershipType": "Free",
+      "LoginFrequency": 1,
+      "FlaggedFraud": true,
+      "ReportedIssues": 4
+    }
+  ],
+  "DataScience": [
+    {
+      "RecordID": "DS001",
+      "Date": "2025-04-01",
+      "UserSegment": "New Users",
+      "DailyActiveUsers": 3200,
+      "AvgSessionTime": 18.4,
+      "ChurnRiskScore": 0.45,
+      "AvgOrderValue": 85.2,
+      "PredictedLTV": 540.0,
+      "WorkoutCompletionRate": 72.5
+    },
+    {
+      "RecordID": "DS002",
+      "Date": "2025-04-01",
+      "UserSegment": "Returning Users",
+      "DailyActiveUsers": 5100,
+      "AvgSessionTime": 27.1,
+      "ChurnRiskScore": 0.18,
+      "AvgOrderValue": 112.75,
+      "PredictedLTV": 960.5,
+      "WorkoutCompletionRate": 88.9
+    },
+    {
+      "RecordID": "DS003",
+      "Date": "2025-04-01",
+      "UserSegment": "Premium Members",
+      "DailyActiveUsers": 2800,
+      "AvgSessionTime": 42.7,
+      "ChurnRiskScore": 0.05,
+      "AvgOrderValue": 155.0,
+      "PredictedLTV": 1400.0,
+      "WorkoutCompletionRate": 95.6
+    },
+    {
+      "RecordID": "DS004",
+      "Date": "2025-04-01",
+      "UserSegment": "Trial Users",
+      "DailyActiveUsers": 1150,
+      "AvgSessionTime": 10.2,
+      "ChurnRiskScore": 0.72,
+      "AvgOrderValue": 45.3,
+      "PredictedLTV": 200.0,
+      "WorkoutCompletionRate": 41.0
+    },
+    {
+      "RecordID": "DS005",
+      "Date": "2025-04-01",
+      "UserSegment": "Inactive >30 Days",
+      "DailyActiveUsers": 300,
+      "AvgSessionTime": 3.1,
+      "ChurnRiskScore": 0.95,
+      "AvgOrderValue": 22.0,
+      "PredictedLTV": 75.0,
+      "WorkoutCompletionRate": 12.5
+    }
+  ]
+}
