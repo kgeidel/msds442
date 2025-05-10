@@ -1,0 +1,1116 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Keep aspect ratio if custom image width or height is specified
+    \setkeys{Gin}{keepaspectratio}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \makeatletter
+    \newsavebox\pandoc@box
+    \newcommand*\pandocbounded[1]{%
+      \sbox\pandoc@box{#1}%
+      % scaling factors for width and height
+      \Gscale@div\@tempa\textheight{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+      \Gscale@div\@tempb\linewidth{\wd\pandoc@box}%
+      % select the smaller of both
+      \ifdim\@tempb\p@<\@tempa\p@
+        \let\@tempa\@tempb
+      \fi
+      % scaling accordingly (\@tempa < 1)
+      \ifdim\@tempa\p@<\p@
+        \scalebox{\@tempa}{\usebox\pandoc@box}%
+      % scaling not needed, use as it is
+      \else
+        \usebox{\pandoc@box}%
+      \fi
+    }
+    \makeatother
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Assignment\_02\_NOTEBOOK\_Geidel}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhf{} % Clear all header and footer fields
+    \fancyhead[R]{\thepage} % Place the page number in the top right corner
+    \renewcommand{\headrulewidth}{0pt} % Remove the header rule
+    
+
+    \setcounter{page}{101} 
+
+\begin{document}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{} MSDS 442: AI Agent Design and Development}
+\PY{c+c1}{\PYZsh{} Spring \PYZsq{}25}
+\PY{c+c1}{\PYZsh{} Dr. Bader}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{} Assignment 2 \PYZhy{} Electronics Product Design Agent}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} Kevin Geidel}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+
+\PY{c+c1}{\PYZsh{} OBJECTIVE:}
+\PY{c+c1}{\PYZsh{}   The following will construct an AI agent using the LangChain \PYZam{} LangGraph frameworks }
+\PY{c+c1}{\PYZsh{}   The agent will act as a sales assistant to recommend laptop models and customization }
+\PY{c+c1}{\PYZsh{}   based on customer input.}
+
+\PY{c+c1}{\PYZsh{} Load environment variables}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{dotenv}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{load\PYZus{}dotenv}
+\PY{n}{load\PYZus{}dotenv}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Python native imports}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{os}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{sys}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{pprint}
+
+\PY{c+c1}{\PYZsh{} Third party library import}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{hub}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{prompts}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{PromptTemplate}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}community}\PY{n+nn}{.}\PY{n+nn}{document\PYZus{}loaders}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{PyPDFLoader}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}openai}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{ChatOpenAI}\PY{p}{,} \PY{n}{OpenAIEmbeddings}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{output\PYZus{}parsers}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{StrOutputParser}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{prebuilt}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{tools\PYZus{}condition}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{graph}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{END}\PY{p}{,} \PY{n}{StateGraph}\PY{p}{,} \PY{n}{START}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{vectorstores}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{InMemoryVectorStore}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{prebuilt}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{ToolNode}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain}\PY{n+nn}{.}\PY{n+nn}{document\PYZus{}loaders}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{WebBaseLoader}
+\PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USER\PYZus{}AGENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3}\PY{l+s+s1}{\PYZsq{}}
+\PY{n+nb}{\PYZus{}\PYZus{}import\PYZus{}\PYZus{}}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pysqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pysqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}chroma}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Chroma}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}text\PYZus{}splitters}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{RecursiveCharacterTextSplitter}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain}\PY{n+nn}{.}\PY{n+nn}{tools}\PY{n+nn}{.}\PY{n+nn}{retriever}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{create\PYZus{}retriever\PYZus{}tool}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{typing}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Annotated}\PY{p}{,} \PY{n}{Sequence}\PY{p}{,} \PY{n}{Literal}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{typing\PYZus{}extensions}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{TypedDict}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{messages}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{BaseMessage}\PY{p}{,} \PY{n}{HumanMessage}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{graph}\PY{n+nn}{.}\PY{n+nn}{message}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{add\PYZus{}messages}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{pydantic}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{BaseModel}\PY{p}{,} \PY{n}{Field}
+
+\PY{c+c1}{\PYZsh{} Assign experiment\PYZhy{}wide variables}
+\PY{n}{model\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s1}{\PYZsq{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Requirment 1: building the graph of the agent}
+\PY{c+c1}{\PYZsh{} Requirment 2: Use WebBaseLoader from LangChain to load the following webpage into a document}
+
+\PY{n}{urls} \PY{o}{=} \PY{p}{[}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.dell.com/en\PYZhy{}us/shop/dell\PYZhy{}laptops/inspiron\PYZhy{}14\PYZhy{}2\PYZhy{}in\PYZhy{}1\PYZhy{}laptop/spd/inspiron\PYZhy{}14\PYZhy{}7440\PYZhy{}2\PYZhy{}in\PYZhy{}1\PYZhy{}laptop}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.dell.com/en\PYZhy{}us/shop/dell\PYZhy{}laptops/latitude\PYZhy{}5450\PYZhy{}laptop/spd/latitude\PYZhy{}14\PYZhy{}5450\PYZhy{}laptop}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.dell.com/en\PYZhy{}us/shop/dell\PYZhy{}laptops/latitude\PYZhy{}7450\PYZhy{}laptop/spd/latitude\PYZhy{}14\PYZhy{}7450\PYZhy{}2\PYZhy{}in\PYZhy{}1\PYZhy{}laptop}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{https://www.dell.com/en\PYZhy{}us/shop/dell\PYZhy{}laptops/xps\PYZhy{}14\PYZhy{}laptop/spd/xps\PYZhy{}14\PYZhy{}9440\PYZhy{}laptop}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+\PY{p}{]}
+
+\PY{c+c1}{\PYZsh{} Use WebBaseLoader from LangChain to load the Dell product pages into a document.}
+\PY{n}{docs} \PY{o}{=} \PY{p}{[}\PY{n}{WebBaseLoader}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{url} \PY{o+ow}{in} \PY{n}{urls}\PY{p}{]}
+\PY{n}{docs\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{n}{item} \PY{k}{for} \PY{n}{sublist} \PY{o+ow}{in} \PY{n}{docs} \PY{k}{for} \PY{n}{item} \PY{o+ow}{in} \PY{n}{sublist}\PY{p}{]}
+
+\PY{n}{text\PYZus{}splitter} \PY{o}{=} \PY{n}{RecursiveCharacterTextSplitter}\PY{o}{.}\PY{n}{from\PYZus{}tiktoken\PYZus{}encoder}\PY{p}{(}
+    \PY{n}{chunk\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{100}\PY{p}{,} \PY{n}{chunk\PYZus{}overlap}\PY{o}{=}\PY{l+m+mi}{50}
+\PY{p}{)}
+\PY{n}{doc\PYZus{}splits} \PY{o}{=} \PY{n}{text\PYZus{}splitter}\PY{o}{.}\PY{n}{split\PYZus{}documents}\PY{p}{(}\PY{n}{docs\PYZus{}list}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Store the document in the Chroma vector store}
+\PY{n}{vector\PYZus{}store} \PY{o}{=} \PY{n}{Chroma}\PY{o}{.}\PY{n}{from\PYZus{}documents}\PY{p}{(}
+    \PY{n}{documents}\PY{o}{=}\PY{n}{doc\PYZus{}splits}\PY{p}{,}
+    \PY{n}{collection\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rag\PYZhy{}chroma}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{embedding}\PY{o}{=}\PY{n}{OpenAIEmbeddings}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Create a retriever tool that will be used by the AI Agent to verify that the document is relevant to the prompt}
+\PY{n}{retriever} \PY{o}{=} \PY{n}{vector\PYZus{}store}\PY{o}{.}\PY{n}{as\PYZus{}retriever}\PY{p}{(}\PY{p}{)}
+
+\PY{n}{retriever\PYZus{}tool} \PY{o}{=} \PY{n}{create\PYZus{}retriever\PYZus{}tool}\PY{p}{(}
+    \PY{n}{retriever}\PY{p}{,}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve\PYZus{}dell\PYZus{}docs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Search Dell Knowledge base in the vector store and return information for:}
+\PY{l+s+sd}{        \PYZhy{} Picking laptop models by use case and desired components}
+\PY{l+s+sd}{        \PYZhy{} Special features of laptop models}
+\PY{l+s+sd}{        \PYZhy{} Types of laptops\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}
+\PY{p}{)}
+
+\PY{n}{tools} \PY{o}{=} \PY{p}{[}\PY{n}{retriever\PYZus{}tool}\PY{p}{]}
+\PY{n}{tools}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+[Tool(name='retrieve\_dell\_docs', description='Search Dell Knowledge base in the
+vector store and return information for:\textbackslash{}n        - Picking laptop models by use
+case and desired components\textbackslash{}n        - Special features of laptop models\textbackslash{}n
+- Types of laptops', args\_schema=<class
+'langchain\_core.tools.retriever.RetrieverInput'>,
+func=functools.partial(<function \_get\_relevant\_documents at 0x7fc48fb9f4c0>,
+retriever=VectorStoreRetriever(tags=['Chroma', 'OpenAIEmbeddings'],
+vectorstore=<langchain\_chroma.vectorstores.Chroma object at 0x7fc48fb7ce10>,
+search\_kwargs=\{\}),
+document\_prompt=PromptTemplate(input\_variables=['page\_content'], input\_types=\{\},
+partial\_variables=\{\}, template='\{page\_content\}'), document\_separator='\textbackslash{}n\textbackslash{}n',
+response\_format='content'), coroutine=functools.partial(<function
+\_aget\_relevant\_documents at 0x7fc48fb9f600>,
+retriever=VectorStoreRetriever(tags=['Chroma', 'OpenAIEmbeddings'],
+vectorstore=<langchain\_chroma.vectorstores.Chroma object at 0x7fc48fb7ce10>,
+search\_kwargs=\{\}),
+document\_prompt=PromptTemplate(input\_variables=['page\_content'], input\_types=\{\},
+partial\_variables=\{\}, template='\{page\_content\}'), document\_separator='\textbackslash{}n\textbackslash{}n',
+response\_format='content'))]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The following classes are used to maintain agent state}
+\PY{c+c1}{\PYZsh{} and a agent graph that maps the nodes and edges }
+
+\PY{k}{class}\PY{+w}{ }\PY{n+nc}{AgentState}\PY{p}{(}\PY{n}{TypedDict}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} The add\PYZus{}messages function defines how an update should be processed}
+    \PY{c+c1}{\PYZsh{} Default is to replace. add\PYZus{}messages says \PYZdq{}append\PYZdq{}}
+    \PY{n}{messages}\PY{p}{:} \PY{n}{Annotated}\PY{p}{[}\PY{n}{Sequence}\PY{p}{[}\PY{n}{BaseMessage}\PY{p}{]}\PY{p}{,} \PY{n}{add\PYZus{}messages}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Edges}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{grade\PYZus{}documents}\PY{p}{(}\PY{n}{state}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{Literal}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Determines whether the retrieved documents are relevant to the question.}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{        str: A decision for whether the documents are relevant or not}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}CHECK RELEVANCE\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Data model}
+    \PY{k}{class}\PY{+w}{ }\PY{n+nc}{grade}\PY{p}{(}\PY{n}{BaseModel}\PY{p}{)}\PY{p}{:}
+\PY{+w}{        }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Binary score for relevance check.\PYZdq{}\PYZdq{}\PYZdq{}}
+
+        \PY{n}{binary\PYZus{}score}\PY{p}{:} \PY{n+nb}{str} \PY{o}{=} \PY{n}{Field}\PY{p}{(}\PY{n}{description}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Relevance score }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{yes}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ or }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{no}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} LLM}
+\PY{c+c1}{\PYZsh{}    model = ChatOpenAI(temperature=0, model=\PYZdq{}gpt\PYZhy{}4\PYZhy{}0125\PYZhy{}preview\PYZdq{}, streaming=True)}
+    \PY{n}{model} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} LLM with tool and validation}
+    \PY{n}{llm\PYZus{}with\PYZus{}tool} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{with\PYZus{}structured\PYZus{}output}\PY{p}{(}\PY{n}{grade}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Prompt}
+    \PY{n}{prompt} \PY{o}{=} \PY{n}{PromptTemplate}\PY{p}{(}
+        \PY{n}{template}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{You are a sales person providing recommendations about which dell laptop meets their needs. }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        Here is the retrieved document: }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }\PY{l+s+si}{\PYZob{}context\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        Here is the user question: }\PY{l+s+si}{\PYZob{}question\PYZcb{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        If the document contains keyword(s) or semantic meaning related to the user question, grade it as relevant. }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{        Give a binary score }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{yes}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ or }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{no}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{ score to indicate whether the document is relevant to the question.}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}
+        \PY{n}{input\PYZus{}variables}\PY{o}{=}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{context}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,}
+    \PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Chain}
+    \PY{n}{chain} \PY{o}{=} \PY{n}{prompt} \PY{o}{|} \PY{n}{llm\PYZus{}with\PYZus{}tool}
+
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{last\PYZus{}message} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+
+    \PY{n}{question} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{content}
+    \PY{n}{docs} \PY{o}{=} \PY{n}{last\PYZus{}message}\PY{o}{.}\PY{n}{content}
+
+    \PY{n}{scored\PYZus{}result} \PY{o}{=} \PY{n}{chain}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{question}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{context}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{docs}\PY{p}{\PYZcb{}}\PY{p}{)}
+
+    \PY{n}{score} \PY{o}{=} \PY{n}{scored\PYZus{}result}\PY{o}{.}\PY{n}{binary\PYZus{}score}
+
+    \PY{k}{if} \PY{n}{score} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{yes}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}DECISION: DOCS RELEVANT\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}
+
+    \PY{k}{else}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}DECISION: DOCS NOT RELEVANT\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{score}\PY{p}{)}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}
+
+
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Nodes}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{agent}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Invokes the agent model to generate a response based on the current state. Given}
+\PY{l+s+sd}{    the question, it will decide to retrieve using the retriever tool, or simply end.}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{        dict: The updated state with the agent response appended to messages}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}CALL AGENT\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{model} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{bind\PYZus{}tools}\PY{p}{(}\PY{n}{tools}\PY{p}{)}
+    \PY{n}{response} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{n}{messages}\PY{p}{)}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{response}\PY{p}{]}\PY{p}{\PYZcb{}}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{rewrite}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Transform the query to produce a better question.}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{        dict: The updated state with re\PYZhy{}phrased question}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}TRANSFORM QUERY\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{question} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{content}
+
+    \PY{n}{msg} \PY{o}{=} \PY{p}{[}
+        \PY{n}{HumanMessage}\PY{p}{(}
+            \PY{n}{content}\PY{o}{=}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{ }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }
+\PY{l+s+s2}{    Look at the input and try to reason about the underlying semantic intent / meaning. }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ }
+\PY{l+s+s2}{    Here is the initial question:}
+\PY{l+s+s2}{    }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{    }\PY{l+s+si}{\PYZob{}}\PY{n}{question}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ }
+\PY{l+s+s2}{    }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{ \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} }\PY{l+s+se}{\PYZbs{}n}
+\PY{l+s+s2}{    Formulate an improved question: }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{,}
+        \PY{p}{)}
+    \PY{p}{]}
+
+    \PY{c+c1}{\PYZsh{} Grader}
+    \PY{n}{model} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+    \PY{n}{response} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{n}{msg}\PY{p}{)}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{response}\PY{p}{]}\PY{p}{\PYZcb{}}
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{generate}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+\PY{+w}{    }\PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+sd}{    Generate answer}
+
+\PY{l+s+sd}{    Args:}
+\PY{l+s+sd}{        state (messages): The current state}
+
+\PY{l+s+sd}{    Returns:}
+\PY{l+s+sd}{         dict: The updated state with re\PYZhy{}phrased question}
+\PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}GENERATE\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{messages} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+    \PY{n}{question} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{content}
+    \PY{n}{last\PYZus{}message} \PY{o}{=} \PY{n}{messages}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+
+    \PY{n}{docs} \PY{o}{=} \PY{n}{last\PYZus{}message}\PY{o}{.}\PY{n}{content}
+
+    \PY{c+c1}{\PYZsh{} Prompt}
+    \PY{n}{prompt} \PY{o}{=} \PY{n}{hub}\PY{o}{.}\PY{n}{pull}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rlm/rag\PYZhy{}prompt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} LLM}
+    \PY{n}{llm} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{model\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{streaming}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Post\PYZhy{}processing}
+    \PY{k}{def}\PY{+w}{ }\PY{n+nf}{format\PYZus{}docs}\PY{p}{(}\PY{n}{docs}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{doc}\PY{o}{.}\PY{n}{page\PYZus{}content} \PY{k}{for} \PY{n}{doc} \PY{o+ow}{in} \PY{n}{docs}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Chain}
+    \PY{n}{rag\PYZus{}chain} \PY{o}{=} \PY{n}{prompt} \PY{o}{|} \PY{n}{llm} \PY{o}{|} \PY{n}{StrOutputParser}\PY{p}{(}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} Run}
+    \PY{n}{response} \PY{o}{=} \PY{n}{rag\PYZus{}chain}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{context}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{docs}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{question}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{question}\PY{p}{\PYZcb{}}\PY{p}{)}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{response}\PY{p}{]}\PY{p}{\PYZcb{}}
+
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{20} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Prompt[rlm/rag\PYZhy{}prompt]}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}} \PY{o}{*} \PY{l+m+mi}{20}\PY{p}{)}
+\PY{n}{prompt} \PY{o}{=} \PY{n}{hub}\PY{o}{.}\PY{n}{pull}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rlm/rag\PYZhy{}prompt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}\PY{o}{.}\PY{n}{pretty\PYZus{}print}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+********************Prompt[rlm/rag-prompt]********************
+================================\textbf{ Human Message
+}=================================
+
+You are an assistant for question-answering tasks. Use the following pieces of
+retrieved context to answer the question. If you don't know the answer, just say
+that you don't know. Use three sentences maximum and keep the answer concise.
+Question: \textcolor{ansi-yellow-intense}{\textbf{\{question\}}}
+Context: \textcolor{ansi-yellow-intense}{\textbf{\{context\}}}
+Answer:
+    \end{Verbatim}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Define a new graph}
+\PY{n}{workflow} \PY{o}{=} \PY{n}{StateGraph}\PY{p}{(}\PY{n}{AgentState}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Define the nodes we will cycle between}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{agent}\PY{p}{)}  \PY{c+c1}{\PYZsh{} agent}
+\PY{n}{retrieve} \PY{o}{=} \PY{n}{ToolNode}\PY{p}{(}\PY{p}{[}\PY{n}{retriever\PYZus{}tool}\PY{p}{]}\PY{p}{)}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{retrieve}\PY{p}{)}  \PY{c+c1}{\PYZsh{} retrieval}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{rewrite}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Re\PYZhy{}writing the question}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{generate}
+\PY{p}{)}  \PY{c+c1}{\PYZsh{} Generating a response after we know the documents are relevant}
+\PY{c+c1}{\PYZsh{} Call agent node to decide to retrieve or not}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{n}{START}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Decide whether to retrieve}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}conditional\PYZus{}edges}\PY{p}{(}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{c+c1}{\PYZsh{} Assess agent decision}
+    \PY{n}{tools\PYZus{}condition}\PY{p}{,}
+    \PY{p}{\PYZob{}}
+        \PY{c+c1}{\PYZsh{} Translate the condition outputs to nodes in our graph}
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tools}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+        \PY{n}{END}\PY{p}{:} \PY{n}{END}\PY{p}{,}
+    \PY{p}{\PYZcb{}}\PY{p}{,}
+\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Edges taken after the `action` node is called.}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}conditional\PYZus{}edges}\PY{p}{(}
+    \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{retrieve}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{c+c1}{\PYZsh{} Assess agent decision}
+    \PY{n}{grade\PYZus{}documents}\PY{p}{,}
+\PY{p}{)}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{END}\PY{p}{)}
+\PY{n}{workflow}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{rewrite}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Compile}
+\PY{n}{graph} \PY{o}{=} \PY{n}{workflow}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} View the graph}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Image}\PY{p}{,} \PY{n}{display}
+\PY{n}{display}\PY{p}{(}\PY{n}{Image}\PY{p}{(}\PY{n}{graph}\PY{o}{.}\PY{n}{get\PYZus{}graph}\PY{p}{(}\PY{n}{xray}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{draw\PYZus{}mermaid\PYZus{}png}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_02_NOTEBOOK_Geidel_files/Assignment_02_NOTEBOOK_Geidel_5_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    \clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Assemble the function that will send a user message to the agent}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{query\PYZus{}agent}\PY{p}{(}\PY{n}{user\PYZus{}message}\PY{p}{)}\PY{p}{:}
+    \PY{n}{inputs} \PY{o}{=} \PY{p}{\PYZob{}}
+        \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{messages}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}
+            \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{system}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+s2}{                Instructions: }
+\PY{l+s+s2}{                        \PYZhy{} Check on the user question, query, statement or prompt content and use the tools to retrieve data from your knowledge base in the vector store. }
+\PY{l+s+s2}{                        \PYZhy{} Provide laptop recommendations for laptops that match specifications in the user}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s prompt.}
+\PY{l+s+s2}{                        \PYZhy{} For greeting type messaages, respond with message that you can help with questions related to Dell laptops.}
+\PY{l+s+s2}{                            otherwsie reply with the message: Sorry this is out of scope. You could use Google to search for this type of content/question}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{p}{)}\PY{p}{,}
+            
+            \PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{user}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{user\PYZus{}message}\PY{p}{)}\PY{p}{,}
+
+        \PY{p}{]}
+    \PY{p}{\PYZcb{}}
+    \PY{k}{for} \PY{n}{output} \PY{o+ow}{in} \PY{n}{graph}\PY{o}{.}\PY{n}{stream}\PY{p}{(}\PY{n}{inputs}\PY{p}{)}\PY{p}{:}
+        \PY{k}{for} \PY{n}{key}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{output}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Output from node }\PY{l+s+s2}{\PYZsq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{key}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+            \PY{n}{pprint}\PY{o}{.}\PY{n}{pprint}\PY{p}{(}\PY{n}{value}\PY{p}{,} \PY{n}{indent}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{width}\PY{o}{=}\PY{l+m+mi}{80}\PY{p}{,} \PY{n}{depth}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} requirement \PYZsh{}3}
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I want a dell computer for travel that has Intel® Core™ 7 150U.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='', additional\_kwargs=\{'tool\_calls':
+[\{'index': 0, 'id': 'call\_30h3OdYUPNUL5tC8o8Pl6zXj', 'function': \{'arguments':
+'\{"query":"Dell laptop for travel with Intel® Core™ 7 150U"\}', 'name':
+'retrieve\_dell\_docs'\}, 'type': 'function'\}]\},
+response\_metadata=\{'finish\_reason': 'tool\_calls', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_0392822090'\},
+id='run-064b70f1-7846-46f2-b256-10a69683aaa4-0', tool\_calls=[\{'name':
+'retrieve\_dell\_docs', 'args': \{'query': 'Dell laptop for travel with Intel®
+Core™ 7 150U'\}, 'id': 'call\_30h3OdYUPNUL5tC8o8Pl6zXj', 'type': 'tool\_call'\}])]\}
+---CHECK RELEVANCE---
+---DECISION: DOCS RELEVANT---
+"Output from node 'retrieve':"
+'---'
+\{ 'messages': [ ToolMessage(content='16:10 displays, enhanced audio, ultralight
+option and Intel® Core™ Ultra processor.1. Select base configuration14" 745514"
+74502. Select your configurationConfiguration 1Configurable Compare Select 2 or
+more products to compare them side-by-sideDell Price \$1,659.00Intel® Core™ Ultra
+5 135U, vPro®Windows 11 ProIntel® Graphics16 GB LPDDR5X256 GB SSD14" Non-Touch
+FHD+\textbackslash{}n\textbackslash{}nXPS 14 Laptop | Dell\textbackslash{}n\textbackslash{}nDell Inspiron 14 2 in 1 Laptop 7440 with Intel
+processor | Dell\textbackslash{}n\textbackslash{}nDell Latitude 5450 14 Inch Laptop | Dell',
+name='retrieve\_dell\_docs', id='ca72a6b4-3e8c-4da9-9545-5a812388c1ee',
+tool\_call\_id='call\_30h3OdYUPNUL5tC8o8Pl6zXj')]\}
+---GENERATE---
+"Output from node 'generate':"
+'---'
+\{ 'messages': [ 'For laptops with 16:10 displays, enhanced audio, ultralight '
+                'options, and Intel® Core™ Ultra processors, consider the Dell '
+                'XPS 14 Laptop or the Dell Inspiron 14 2-in-1 Laptop 7440. '
+                'Both models feature Intel processors and are designed for '
+                'portability and performance. The Dell Latitude 5450 is '
+                'another option, though it may vary in specifications.']\}
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} While the response does not mention travel, specifically, it did recommend ultralight designs.}
+\PY{c+c1}{\PYZsh{} These laptops do have intel 7 processors, so in that sense they are accurate.}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{I want a dell computer that has Intel® Core™ Ultra 5 135U vPro® and has 512 GB SSD.}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='', additional\_kwargs=\{'tool\_calls':
+[\{'index': 0, 'id': 'call\_yPpFdOffEfKZY3EHl2uxllOq', 'function': \{'arguments':
+'\{"query":"Dell laptop with Intel Core Ultra 5 135U vPro and 512 GB SSD"\}',
+'name': 'retrieve\_dell\_docs'\}, 'type': 'function'\}]\},
+response\_metadata=\{'finish\_reason': 'tool\_calls', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_0392822090'\},
+id='run-900a2bff-9b98-47db-a2e5-98fd5d7aa9c1-0', tool\_calls=[\{'name':
+'retrieve\_dell\_docs', 'args': \{'query': 'Dell laptop with Intel Core Ultra 5
+135U vPro and 512 GB SSD'\}, 'id': 'call\_yPpFdOffEfKZY3EHl2uxllOq', 'type':
+'tool\_call'\}])]\}
+---CHECK RELEVANCE---
+---DECISION: DOCS RELEVANT---
+"Output from node 'retrieve':"
+'---'
+\{ 'messages': [ ToolMessage(content='Core™ Ultra 5 135U, vPro®Windows 11
+ProIntel® Graphics16 GB DDR5256 GB SSD14" Non-Touch FHD Tech Specs  Select
+Selected Configuration 1 Configuration 2 Compare Select 2 or more products to
+compare them side-by-sideDell Price \$1,399.00Intel® Core™ Ultra 5 135U,
+vPro®Windows 11 ProIntel® Graphics16 GB DDR5512 GB SSD14" Non-Touch FHD Tech
+Specs  View\textbackslash{}n\textbackslash{}nhas been added to your cart.  CustomizationTech
+SpecsFeaturesReviewsSupportTech SpecsProcessorIntel® Core™ Ultra 5 135U, vPro®
+(12 cores, up to 4.4 GHz Turbo Max 3.0)Operating SystemWindows 11 Pro, English,
+Brazilian Portuguese, French, SpanishGraphics CardIntegrated Intel® Graphics,
+Core™ Ultra 5 135U vPRO Processor, 16GB LPDDR5x MemoryDisplayLaptop
+14.0",\textbackslash{}n\textbackslash{}nPrice \$1,399.00Intel® Core™ Ultra 5 135U, vPro®Windows 11 ProIntel®
+Graphics16 GB DDR5512 GB SSD14" Non-Touch FHD Tech Specs  View Special Offers
+Select Selected Configuration 2 Configuration 3 Compare Select 2 or more
+products to compare them side-by-sideDell Price \$1,559.00 Estimated Value
+\$1,799.00 You Save  \$240.00Intel® Core™ Ultra 7\textbackslash{}n\textbackslash{}n16:10 displays, enhanced
+audio, ultralight option and Intel® Core™ Ultra processor.1. Select base
+configuration14" 745514" 74502. Select your configurationConfiguration
+1Configurable Compare Select 2 or more products to compare them side-by-sideDell
+Price \$1,659.00Intel® Core™ Ultra 5 135U, vPro®Windows 11 ProIntel® Graphics16
+GB LPDDR5X256 GB SSD14" Non-Touch FHD+', name='retrieve\_dell\_docs',
+id='7efab7e7-1637-47a5-b8ba-ec60cc52cf64',
+tool\_call\_id='call\_yPpFdOffEfKZY3EHl2uxllOq')]\}
+---GENERATE---
+"Output from node 'generate':"
+'---'
+\{ 'messages': [ 'For your specifications, I recommend the Dell laptop with an '
+                'Intel® Core™ Ultra 5 135U, vPro®, 16 GB DDR5, and a 256 GB '
+                'SSD priced at \$1,399.00. Alternatively, you could consider '
+                'the model with the same processor and memory but a 512 GB SSD '
+                'for \$1,559.00. Both options feature a 14" Non-Touch FHD '
+                'display and run on Windows 11 Pro.']\}
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The response includes laptops that match the request }
+\PY{c+c1}{\PYZsh{} but also offer additional models with other storage amounts.}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I want a dell computer that has Intel® Core™ Ultra 7 165U vPro® and 1 TB SSD?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='', additional\_kwargs=\{'tool\_calls':
+[\{'index': 0, 'id': 'call\_2eTsfpcityOD6FwaOpsGU48c', 'function': \{'arguments':
+'\{"query":"Dell laptop with Intel Core Ultra 7 165U vPro and 1 TB SSD"\}',
+'name': 'retrieve\_dell\_docs'\}, 'type': 'function'\}]\},
+response\_metadata=\{'finish\_reason': 'tool\_calls', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_0392822090'\}, id='run-
+af92c412-08c0-4570-b9a9-bfc19cdc7766-0', tool\_calls=[\{'name':
+'retrieve\_dell\_docs', 'args': \{'query': 'Dell laptop with Intel Core Ultra 7
+165U vPro and 1 TB SSD'\}, 'id': 'call\_2eTsfpcityOD6FwaOpsGU48c', 'type':
+'tool\_call'\}])]\}
+---CHECK RELEVANCE---
+---DECISION: DOCS RELEVANT---
+"Output from node 'retrieve':"
+'---'
+\{ 'messages': [ ToolMessage(content='Core™ Ultra 5 135U, vPro®Windows 11
+ProIntel® Graphics16 GB DDR5256 GB SSD14" Non-Touch FHD Tech Specs  Select
+Selected Configuration 1 Configuration 2 Compare Select 2 or more products to
+compare them side-by-sideDell Price \$1,399.00Intel® Core™ Ultra 5 135U,
+vPro®Windows 11 ProIntel® Graphics16 GB DDR5512 GB SSD14" Non-Touch FHD Tech
+Specs  View\textbackslash{}n\textbackslash{}nside-by-sideDell Price \$1,659.00Intel® Core™ Ultra 5 135U,
+vPro®Windows 11 ProIntel® Graphics16 GB LPDDR5X256 GB SSD14" Non-Touch FHD+
+(1920x1200) Tech Specs  Select Selected Configuration 1 Configuration 2 Compare
+Select 2 or more products to compare them side-by-sideDell Price \$1,889.00Intel®
+Core™ Ultra 7 165U vPro®, 12\textbackslash{}n\textbackslash{}nPrice \$1,399.00Intel® Core™ Ultra 5 135U,
+vPro®Windows 11 ProIntel® Graphics16 GB DDR5512 GB SSD14" Non-Touch FHD Tech
+Specs  View Special Offers  Select Selected Configuration 2 Configuration 3
+Compare Select 2 or more products to compare them side-by-sideDell Price
+\$1,559.00 Estimated Value  \$1,799.00 You Save  \$240.00Intel® Core™ Ultra
+7\textbackslash{}n\textbackslash{}n16:10 displays, enhanced audio, ultralight option and Intel® Core™ Ultra
+processor.1. Select base configuration14" 745514" 74502. Select your
+configurationConfiguration 1Configurable Compare Select 2 or more products to
+compare them side-by-sideDell Price \$1,659.00Intel® Core™ Ultra 5 135U,
+vPro®Windows 11 ProIntel® Graphics16 GB LPDDR5X256 GB SSD14" Non-Touch FHD+',
+name='retrieve\_dell\_docs', id='8cd79139-89be-4896-babf-6e1ac93502c0',
+tool\_call\_id='call\_2eTsfpcityOD6FwaOpsGU48c')]\}
+---GENERATE---
+"Output from node 'generate':"
+'---'
+\{ 'messages': [ 'For your specifications, I recommend the Dell laptops with '
+                'the Intel® Core™ Ultra 5 135U, vPro®, and 16 GB RAM. You can '
+                'choose between configurations with either a 256 GB SSD priced '
+                'at \$1,399.00 or a 512 GB SSD priced at \$1,659.00. Both '
+                'options feature a 14" Non-Touch FHD display.']\}
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} This response did not retrieve the proper processor.}
+\PY{c+c1}{\PYZsh{} There are very specific recommendations but they are not matching the requested specs}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{I want a light weight XPS computer with Intel® Core™ Ultra 7 165U vPro® and 1 TB SSD.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='', additional\_kwargs=\{'tool\_calls':
+[\{'index': 0, 'id': 'call\_4fmN5yufGTNWD7nVT3jZXx8F', 'function': \{'arguments':
+'\{"query":"lightweight XPS laptop Intel Core Ultra 7 165U vPro 1 TB SSD"\}',
+'name': 'retrieve\_dell\_docs'\}, 'type': 'function'\}]\},
+response\_metadata=\{'finish\_reason': 'tool\_calls', 'model\_name':
+'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_0392822090'\},
+id='run-e1bff67d-343e-4dff-b395-97b9ce7739bc-0', tool\_calls=[\{'name':
+'retrieve\_dell\_docs', 'args': \{'query': 'lightweight XPS laptop Intel Core Ultra
+7 165U vPro 1 TB SSD'\}, 'id': 'call\_4fmN5yufGTNWD7nVT3jZXx8F', 'type':
+'tool\_call'\}])]\}
+---CHECK RELEVANCE---
+---DECISION: DOCS RELEVANT---
+"Output from node 'retrieve':"
+'---'
+\{ 'messages': [ ToolMessage(content='16:10 displays, enhanced audio, ultralight
+option and Intel® Core™ Ultra processor.1. Select base configuration14" 745514"
+74502. Select your configurationConfiguration 1Configurable Compare Select 2 or
+more products to compare them side-by-sideDell Price \$1,659.00Intel® Core™ Ultra
+5 135U, vPro®Windows 11 ProIntel® Graphics16 GB LPDDR5X256 GB SSD14" Non-Touch
+FHD+\textbackslash{}n\textbackslash{}nCore™ Ultra 5 135U, vPro®Windows 11 ProIntel® Graphics16 GB DDR5256 GB
+SSD14" Non-Touch FHD Tech Specs  Select Selected Configuration 1 Configuration 2
+Compare Select 2 or more products to compare them side-by-sideDell Price
+\$1,399.00Intel® Core™ Ultra 5 135U, vPro®Windows 11 ProIntel® Graphics16 GB
+DDR5512 GB SSD14" Non-Touch FHD Tech Specs  View\textbackslash{}n\textbackslash{}nside-by-sideDell Price
+\$1,659.00Intel® Core™ Ultra 5 135U, vPro®Windows 11 ProIntel® Graphics16 GB
+LPDDR5X256 GB SSD14" Non-Touch FHD+ (1920x1200) Tech Specs  Select Selected
+Configuration 1 Configuration 2 Compare Select 2 or more products to compare
+them side-by-sideDell Price \$1,889.00Intel® Core™ Ultra 7 165U vPro®, 12\textbackslash{}n\textbackslash{}nhas
+been added to your cart.  CustomizationTech SpecsFeaturesReviewsSupportTech
+SpecsProcessorIntel® Core™ Ultra 5 135U, vPro® (12 cores, up to 4.4 GHz Turbo
+Max 3.0)Operating SystemWindows 11 Pro, English, Brazilian Portuguese, French,
+SpanishGraphics CardIntegrated Intel® Graphics, Core™ Ultra 5 135U vPRO
+Processor, 16GB LPDDR5x MemoryDisplayLaptop 14.0",', name='retrieve\_dell\_docs',
+id='56b418bc-0a4a-4fff-bfa4-f77a774306ba',
+tool\_call\_id='call\_4fmN5yufGTNWD7nVT3jZXx8F')]\}
+---GENERATE---
+"Output from node 'generate':"
+'---'
+\{ 'messages': [ 'For your specifications, I recommend the Dell 14" 7455 with '
+                'an Intel® Core™ Ultra 5 135U processor, 16 GB LPDDR5X memory, '
+                'and a 256 GB SSD, priced at \$1,659. Alternatively, you could '
+                'consider the Dell 14" 7450 with similar specs but a 512 GB '
+                'SSD for \$1,399. Both options feature a 14" Non-Touch FHD '
+                'display and enhanced audio.']\}
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} The response does not mention it specifically but it did recommend a lightwight model.}
+\PY{c+c1}{\PYZsh{} The memory does not match the requested specs.}
+\end{Verbatim}
+\end{tcolorbox}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{query\PYZus{}agent}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What laptop has the intel 7 processor?}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+---CALL AGENT---
+"Output from node 'agent':"
+'---'
+\{ 'messages': [ AIMessage(content='', additional\_kwargs=\{'tool\_calls':
+[\{'index': 0, 'id': 'call\_32yr7lgayC2WAWhd3w1JYM2y', 'function': \{'arguments':
+'\{"query":"laptop with Intel 7 processor"\}', 'name': 'retrieve\_dell\_docs'\},
+'type': 'function'\}]\}, response\_metadata=\{'finish\_reason': 'tool\_calls',
+'model\_name': 'gpt-4o-mini-2024-07-18', 'system\_fingerprint': 'fp\_0392822090'\},
+id='run-093294c3-3553-4430-ad28-b4cbb7cf5579-0', tool\_calls=[\{'name':
+'retrieve\_dell\_docs', 'args': \{'query': 'laptop with Intel 7 processor'\}, 'id':
+'call\_32yr7lgayC2WAWhd3w1JYM2y', 'type': 'tool\_call'\}])]\}
+---CHECK RELEVANCE---
+---DECISION: DOCS RELEVANT---
+"Output from node 'retrieve':"
+'---'
+\{ 'messages': [ ToolMessage(content='Dell Inspiron 14 2 in 1 Laptop 7440 with
+Intel processor | Dell\textbackslash{}n\textbackslash{}nlaptop with multiple modes, built with Intel Core
+processors and DDR5 memory.Select your configurationDell Technologies recommends
+Windows 11 Pro for business. Warranty support options vary by operating system:
+Dell offers support plans for businesses with Windows Pro and support plans for
+personal use with Windows Home.Configuration 1 Compare Select 2 or more products
+to compare them side-by-sideDell Price \$499.99 Estimated Value  \$679.99 You Save
+\$180.0013th Gen Intel® Core™\textbackslash{}n\textbackslash{}nhas been added to your cart.  CustomizationTech
+SpecsFeaturesReviewsSupportTech SpecsProcessorIntel® Core™ Ultra 5 135U, vPro®
+(12 cores, up to 4.4 GHz Turbo Max 3.0)Operating SystemWindows 11 Pro, English,
+Brazilian Portuguese, French, SpanishGraphics CardIntegrated Intel® Graphics,
+Core™ Ultra 5 135U vPRO Processor, 16GB LPDDR5x MemoryDisplayLaptop
+14.0",\textbackslash{}n\textbackslash{}ncart.  CustomizationTech SpecsFeaturesReviewsSupportTech
+SpecsProcessor13th Gen Intel® Core™ i5-1334U (10 cores, up to 4.6 GHz)Operating
+System(Dell Technologies recommends Windows 11 Pro for business)Windows 11 Home,
+English, French, SpanishGraphics CardIntel® UHD GraphicsDisplay14", Touch, FHD+
+1920x1200, 60Hz, WVA, IPS, 250 nit, ComfortViewMemory *8',
+name='retrieve\_dell\_docs', id='0c475ab9-5820-48f2-838b-854702b5984b',
+tool\_call\_id='call\_32yr7lgayC2WAWhd3w1JYM2y')]\}
+---GENERATE---
+"Output from node 'generate':"
+'---'
+\{ 'messages': [ 'For a versatile laptop, consider the Dell Inspiron 14 2-in-1 '
+                'Laptop 7440, which features a 13th Gen Intel® Core™ i5 '
+                'processor, 16GB LPDDR5x memory, and a 14" FHD+ touch display. '
+                'It is designed for multiple modes and is recommended with '
+                'Windows 11 Pro for business use. The price is approximately '
+                '\$499.99, offering good value for its specifications.']\}
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
