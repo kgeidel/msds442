@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1746851626 "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.tex" "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.pdf" "Assignment_2_PAPER_Geidel" 1746851627
+["pdflatex"] 1747009395 "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.tex" "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.pdf" "Assignment_2_PAPER_Geidel" 1747009396
   "/etc/texmf/web2c/texmf.cnf" 1661383021 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.aux" 1746851627 662 b2b94621371df8d9296b8bf5bec1b851 ""
-  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.tex" 1746851626 3647 8149b0891a5f0e1c4976b311b3143a36 ""
+  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.aux" 1747009396 662 b2b94621371df8d9296b8bf5bec1b851 ""
+  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.tex" 1747009395 6437 eadbae9386e2a4e4c394433aeabbb34b ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -96,13 +96,13 @@
   "Assignment_02_NOTEBOOK_Geidel_files/q3.png" 1746851559 102715 3fc005e225fc35fcc78395405e667273 ""
   "Assignment_02_NOTEBOOK_Geidel_files/q4.png" 1746851585 107384 e2fb909142faeed2eb7ab396d12f3977 ""
   "Assignment_02_NOTEBOOK_Geidel_files/q5.png" 1746851602 86054 54a484c86b086533b5d47e135050c123 ""
-  "Assignment_2_PAPER_Geidel.aux" 1746851627 662 b2b94621371df8d9296b8bf5bec1b851 "pdflatex"
-  "Assignment_2_PAPER_Geidel.out" 1746851626 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "Assignment_2_PAPER_Geidel.tex" 1746851626 3647 8149b0891a5f0e1c4976b311b3143a36 ""
+  "Assignment_2_PAPER_Geidel.aux" 1747009396 662 b2b94621371df8d9296b8bf5bec1b851 "pdflatex"
+  "Assignment_2_PAPER_Geidel.out" 1747009395 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "Assignment_2_PAPER_Geidel.tex" 1747009395 6437 eadbae9386e2a4e4c394433aeabbb34b ""
   (generated)
   "Assignment_2_PAPER_Geidel.log"
+  "Assignment_2_PAPER_Geidel.out"
   "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.log"
   "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_2_PAPER_Geidel.pdf"
-  "Assignment_2_PAPER_Geidel.aux"
-  "Assignment_2_PAPER_Geidel.out"
   "Assignment_2_PAPER_Geidel.pdf"
+  "Assignment_2_PAPER_Geidel.aux"
