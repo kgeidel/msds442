@@ -1,5 +1,6 @@
 beautifulsoup4>=4.13.4
 fitz>=0.0.1.dev2
+grandalf>=0.8
 ipykernel>=6.29.5
 langchain>=0.3.21
 langchain-chroma>=0.2.3
