@@ -1,0 +1,1073 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Keep aspect ratio if custom image width or height is specified
+    \setkeys{Gin}{keepaspectratio}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \makeatletter
+    \newsavebox\pandoc@box
+    \newcommand*\pandocbounded[1]{%
+      \sbox\pandoc@box{#1}%
+      % scaling factors for width and height
+      \Gscale@div\@tempa\textheight{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+      \Gscale@div\@tempb\linewidth{\wd\pandoc@box}%
+      % select the smaller of both
+      \ifdim\@tempb\p@<\@tempa\p@
+        \let\@tempa\@tempb
+      \fi
+      % scaling accordingly (\@tempa < 1)
+      \ifdim\@tempa\p@<\p@
+        \scalebox{\@tempa}{\usebox\pandoc@box}%
+      % scaling not needed, use as it is
+      \else
+        \usebox{\pandoc@box}%
+      \fi
+    }
+    \makeatother
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{Assignment\_03\_NOTEBOOK\_Geidel}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \fancyhf{} % Clear all header and footer fields
+    \fancyhead[R]{\thepage} % Place the page number in the top right corner
+    \renewcommand{\headrulewidth}{0pt} % Remove the header rule   
+    \setcounter{page}{5} 
+
+\begin{document}
+    
+    %\maketitle
+    
+    
+
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+\PY{c+c1}{\PYZsh{} MSDS 442: AI Agent Design and Development}
+\PY{c+c1}{\PYZsh{} Spring \PYZsq{}25}
+\PY{c+c1}{\PYZsh{} Dr. Bader}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{} Assignment 3 \PYZhy{} Allstate Insurance Policy \PYZam{} Claims Agent}
+\PY{c+c1}{\PYZsh{} }
+\PY{c+c1}{\PYZsh{} Kevin Geidel}
+\PY{c+c1}{\PYZsh{}}
+\PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}}
+
+\PY{c+c1}{\PYZsh{} OBJECTIVE:}
+\PY{c+c1}{\PYZsh{}   The following will construct an AI agent using the LangChain \PYZam{} LangGraph frameworks. }
+\PY{c+c1}{\PYZsh{}   The agent will consist of multiple nodes that coordinate to process insurance claims.}
+
+\PY{c+c1}{\PYZsh{} Load environment variables}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{dotenv}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{load\PYZus{}dotenv}
+\PY{n}{load\PYZus{}dotenv}\PY{p}{(}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Python native imports}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{os}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{sys}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{re}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{base64}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{datetime}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{operator}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{random}
+
+\PY{c+c1}{\PYZsh{} Third party library import}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}openai}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{ChatOpenAI}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{graph}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{END}\PY{p}{,} \PY{n}{StateGraph}\PY{p}{,} \PY{n}{START}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langgraph}\PY{n+nn}{.}\PY{n+nn}{checkpoint}\PY{n+nn}{.}\PY{n+nn}{memory}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{MemorySaver}
+\PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{USER\PYZus{}AGENT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3}\PY{l+s+s1}{\PYZsq{}}
+\PY{n+nb}{\PYZus{}\PYZus{}import\PYZus{}\PYZus{}}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pysqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{sys}\PY{o}{.}\PY{n}{modules}\PY{o}{.}\PY{n}{pop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pysqlite3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{typing}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Annotated}\PY{p}{,} \PY{n}{Literal}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{typing\PYZus{}extensions}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{TypedDict}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{langchain\PYZus{}core}\PY{n+nn}{.}\PY{n+nn}{messages}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{SystemMessage}\PY{p}{,} \PY{n}{HumanMessage}
+\PY{k+kn}{import}\PY{+w}{ }\PY{n+nn}{fitz}\PY{o}{,}\PY{+w}{ }\PY{n+nn}{io}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{PIL}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Image} \PY{k}{as} \PY{n}{PilImage}
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Image}\PY{p}{,} \PY{n}{display}\PY{p}{,} \PY{n}{Markdown}
+
+\PY{c+c1}{\PYZsh{} Assign experiment\PYZhy{}wide variables}
+\PY{n}{model\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{data\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Assignment\PYZus{}3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Establish some utils for working with langgraph}
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{pdf\PYZus{}page\PYZus{}to\PYZus{}base64}\PY{p}{(}\PY{n}{pdf\PYZus{}path}\PY{p}{:} \PY{n+nb}{str}\PY{p}{,} \PY{n}{page\PYZus{}number}\PY{p}{:} \PY{n+nb}{int}\PY{p}{)}\PY{p}{:}
+    \PY{n}{pdf\PYZus{}document} \PY{o}{=} \PY{n}{fitz}\PY{o}{.}\PY{n}{open}\PY{p}{(}\PY{n}{pdf\PYZus{}path}\PY{p}{)}
+    \PY{n}{page} \PY{o}{=} \PY{n}{pdf\PYZus{}document}\PY{o}{.}\PY{n}{load\PYZus{}page}\PY{p}{(}\PY{n}{page\PYZus{}number} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{)}  \PY{c+c1}{\PYZsh{} input is one\PYZhy{}indexed}
+    \PY{n}{pix} \PY{o}{=} \PY{n}{page}\PY{o}{.}\PY{n}{get\PYZus{}pixmap}\PY{p}{(}\PY{p}{)}
+    \PY{n}{img} \PY{o}{=} \PY{n}{PilImage}\PY{o}{.}\PY{n}{frombytes}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RGB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{p}{[}\PY{n}{pix}\PY{o}{.}\PY{n}{width}\PY{p}{,} \PY{n}{pix}\PY{o}{.}\PY{n}{height}\PY{p}{]}\PY{p}{,} \PY{n}{pix}\PY{o}{.}\PY{n}{samples}\PY{p}{)}
+
+    \PY{n}{buffer} \PY{o}{=} \PY{n}{io}\PY{o}{.}\PY{n}{BytesIO}\PY{p}{(}\PY{p}{)}
+    \PY{n}{img}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{buffer}\PY{p}{,} \PY{n+nb}{format}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{PNG}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+
+    \PY{k}{return} \PY{n}{base64}\PY{o}{.}\PY{n}{b64encode}\PY{p}{(}\PY{n}{buffer}\PY{o}{.}\PY{n}{getvalue}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{utf\PYZhy{}8}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Establish functions used by agents}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{verify\PYZus{}policy}\PY{p}{(}\PY{n}{state}\PY{p}{)} \PY{o}{\PYZhy{}}\PY{o}{\PYZgt{}} \PY{n}{Literal}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{damage\PYZus{}assessment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}denied}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}   
+    \PY{c+c1}{\PYZsh{} extract the policy number w/ regex}
+    \PY{n}{claim\PYZus{}submitted} \PY{o}{=} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}submitted}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}
+
+    \PY{n}{check\PYZus{}claim\PYZus{}str} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{claim\PYZus{}submitted}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+
+    \PY{n}{policy\PYZus{}number\PYZus{}submitted} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Policy number:}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{s*([}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{d}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{s]+)}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{check\PYZus{}claim\PYZus{}str}\PY{p}{)}
+    
+    \PY{k}{if} \PY{n}{policy\PYZus{}number\PYZus{}submitted}\PY{p}{:}
+        \PY{n}{policy\PYZus{}number} \PY{o}{=} \PY{n}{policy\PYZus{}number\PYZus{}submitted}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}denied}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{} (must submit policy number!)}
+
+    \PY{c+c1}{\PYZsh{} direct to nodes based on deliquency status}
+    \PY{k}{if} \PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{delinquency\PYZus{}policyholder\PYZus{}status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Policyholder 90\PYZhy{}Days Delinquent}\PY{l+s+s2}{\PYZdq{}} \PY{p}{:}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}denied}\PY{l+s+s2}{\PYZdq{}}
+    \PY{k}{if} \PY{n}{policy\PYZus{}number} \PY{o}{==} \PY{n}{state}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{:}
+        \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{damage\PYZus{}assessment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}    
+    \PY{k}{return} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}denied}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+\end{tcolorbox}
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Load a customer policy}
+
+\PY{n}{vehicle\PYZus{}insurance\PYZus{}file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}
+    \PY{n}{data\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Allstate\PYZus{}honda\PYZus{}vehicle\PYZus{}insurance.pdf}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{)}
+\PY{n}{policy\PYZus{}base64\PYZus{}image} \PY{o}{=} \PY{n}{pdf\PYZus{}page\PYZus{}to\PYZus{}base64}\PY{p}{(}\PY{n}{vehicle\PYZus{}insurance\PYZus{}file\PYZus{}path}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{k+kn}{from}\PY{+w}{ }\PY{n+nn}{IPython}\PY{n+nn}{.}\PY{n+nn}{display}\PY{+w}{ }\PY{k+kn}{import} \PY{n}{Image} \PY{k}{as} \PY{n}{IPImage}
+\PY{n}{display}\PY{p}{(}\PY{n}{IPImage}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{base64}\PY{o}{.}\PY{n}{b64decode}\PY{p}{(}\PY{n}{policy\PYZus{}base64\PYZus{}image}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.6\paperheight}}{Assignment_03_NOTEBOOK_Geidel_files/Assignment_03_NOTEBOOK_Geidel_3_0.png}
+    \end{center}
+
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Load an accident photo}
+
+\PY{n}{vehicle\PYZus{}damage\PYZus{}file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}
+    \PY{n}{data\PYZus{}dir}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{honda\PYZhy{}major\PYZhy{}damage.pdf}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{)}
+\PY{n}{policy\PYZus{}base64\PYZus{}image} \PY{o}{=} \PY{n}{pdf\PYZus{}page\PYZus{}to\PYZus{}base64}\PY{p}{(}\PY{n}{vehicle\PYZus{}damage\PYZus{}file\PYZus{}path}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+
+\PY{n}{display}\PY{p}{(}\PY{n}{IPImage}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{base64}\PY{o}{.}\PY{n}{b64decode}\PY{p}{(}\PY{n}{policy\PYZus{}base64\PYZus{}image}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.6\paperheight}}{Assignment_03_NOTEBOOK_Geidel_files/Assignment_03_NOTEBOOK_Geidel_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{6}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Establish a Stateful class for agents to use}
+
+\PY{k}{class}\PY{+w}{ }\PY{n+nc}{ClaimState}\PY{p}{(}\PY{n}{TypedDict}\PY{p}{)}\PY{p}{:}
+    \PY{n}{claim\PYZus{}submitted}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{claim\PYZus{}decision}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{claim\PYZus{}number\PYZus{}on\PYZus{}record}\PY{p}{:} \PY{n+nb}{str}    
+    \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{claim\PYZus{}payout}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{claims\PYZus{}history}\PY{p}{:} \PY{n}{Annotated}\PY{p}{[}\PY{n+nb}{list}\PY{p}{,} \PY{n}{operator}\PY{o}{.}\PY{n}{add}\PY{p}{]}
+    \PY{n}{direct\PYZus{}deposit\PYZus{}payout\PYZus{}date}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{claim\PYZus{}status}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{claim\PYZus{}decision\PYZus{}letter}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{markdown\PYZus{}claim\PYZus{}decision\PYZus{}letter}\PY{p}{:} \PY{n+nb}{str}
+    \PY{n}{claim\PYZus{}status\PYZus{}log}\PY{p}{:} \PY{n}{Annotated}\PY{p}{[}\PY{n+nb}{list}\PY{p}{,} \PY{n}{operator}\PY{o}{.}\PY{n}{add}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Define some module level variables (that will be overwritten for each trial)}
+\PY{n}{POLICY\PYZus{}PDF} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Allstate\PYZus{}honda\PYZus{}vehicle\PYZus{}insurance.pdf}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{DAMAGE\PYZus{}PDF} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{honda\PYZhy{}major\PYZhy{}damage.pdf}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{POLICY\PYZus{}DELINQUENT} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{random}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{} random will use 50/50, True will make policy delinquent, False will make policy current}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Define multi\PYZhy{}agent nodes}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{policyholder}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} represents a policy (active or otherwise)}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policyholder submitted claim:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{\PYZcb{}} 
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{policy\PYZus{}verification\PYZus{}agent}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} Determine if the customer has a valid policy}
+    \PY{n}{vehicle\PYZus{}insurance\PYZus{}file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}
+        \PY{n}{data\PYZus{}dir}\PY{p}{,} \PY{n}{POLICY\PYZus{}PDF}
+    \PY{p}{)}
+    \PY{n}{policy\PYZus{}base64\PYZus{}image} \PY{o}{=} \PY{n}{pdf\PYZus{}page\PYZus{}to\PYZus{}base64}\PY{p}{(}\PY{n}{vehicle\PYZus{}insurance\PYZus{}file\PYZus{}path}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+    \PY{n}{llm} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{n}{model\PYZus{}name}\PY{p}{,} \PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} 
+    \PY{n}{query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{What is the policy number}\PY{l+s+s2}{\PYZdq{}}
+    \PY{n}{human\PYZus{}message} \PY{o}{=} \PY{n}{HumanMessage}\PY{p}{(}
+        \PY{n}{content}\PY{o}{=}\PY{p}{[}
+            \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{query}\PY{p}{\PYZcb{}}\PY{p}{,}
+            \PY{p}{\PYZob{}}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image\PYZus{}url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image\PYZus{}url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data:image/jpeg;base64,}\PY{l+s+si}{\PYZob{}}\PY{n}{policy\PYZus{}base64\PYZus{}image}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+            \PY{p}{\PYZcb{}}\PY{p}{,}
+        \PY{p}{]}\PY{p}{,}
+    \PY{p}{)}
+    \PY{n}{system\PYZus{}message} \PY{o}{=} \PY{n}{SystemMessage}\PY{p}{(}\PY{n}{content}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{You are a helpful assistant tasked with reviewing insurance policy document}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record} \PY{o}{=} \PY{n}{llm}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{[}\PY{n}{system\PYZus{}message}\PY{p}{]}\PY{o}{+}\PY{p}{[}\PY{n}{human\PYZus{}message}\PY{p}{]}\PY{p}{)}
+    \PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record\PYZus{}str} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{o}{.}\PY{n}{content}\PY{p}{)}
+    \PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record} \PY{o}{=} \PY{n}{re}\PY{o}{.}\PY{n}{search}\PY{p}{(}\PY{l+s+sa}{r}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policy number is }\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{*(.+?)}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZbs{}}\PY{l+s+s2}{*}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record\PYZus{}str}\PY{p}{)}
+    \PY{k}{if} \PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{p}{:}
+        \PY{n}{policy\PYZus{}number} \PY{o}{=} \PY{n}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{o}{.}\PY{n}{group}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{strip}\PY{p}{(}\PY{p}{)}
+        \PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{policy\PYZus{}number}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{k+kc}{None}
+
+    \PY{c+c1}{\PYZsh{} Check for dev\PYZsq{}s module level var for if policy is delinquent}
+    \PY{k}{if} \PY{n}{POLICY\PYZus{}DELINQUENT} \PY{o+ow}{is} \PY{k+kc}{True}\PY{p}{:}
+        \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Policyholder 90\PYZhy{}Days Delinquent}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status}\PY{p}{]}        
+    \PY{k}{elif} \PY{n}{POLICY\PYZus{}DELINQUENT} \PY{o+ow}{is} \PY{k+kc}{False}\PY{p}{:}
+        \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Current}\PY{l+s+s2}{\PYZdq{}}
+    \PY{c+c1}{\PYZsh{} Here, let\PYZsq{}s just do a 50 / 50 (random sample) to simulate a delinquent policyholder}
+    \PY{k}{elif} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mf}{0.5}\PY{p}{:}
+        \PY{c+c1}{\PYZsh{} Simulate 50\PYZpc{} probability a delinquent policyholder}
+        \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Policyholder 90\PYZhy{}Days Delinquent}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status}\PY{p}{]}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Current}\PY{l+s+s2}{\PYZdq{}}
+
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policy\PYZus{}verification\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{policy\PYZus{}number}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{delinquency\PYZus{}policyholder\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{delinquency\PYZus{}policyholder\PYZus{}status}\PY{p}{\PYZcb{}} 
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{damage\PYZus{}assessment\PYZus{}agent}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} Rank the level of damage}
+    \PY{n}{vehicle\PYZus{}damage\PYZus{}file\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}
+        \PY{n}{data\PYZus{}dir}\PY{p}{,} \PY{n}{DAMAGE\PYZus{}PDF}
+    \PY{p}{)}
+    \PY{n}{llm} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} 
+    
+    \PY{n}{vehicle\PYZus{}damage\PYZus{}base64\PYZus{}image} \PY{o}{=} \PY{n}{pdf\PYZus{}page\PYZus{}to\PYZus{}base64}\PY{p}{(}\PY{n}{vehicle\PYZus{}damage\PYZus{}file\PYZus{}path}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}  
+    \PY{n}{query} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Classify the vehicle damage: no repair, minor repair, moderate repair, major repair, or irreparable?}\PY{l+s+s2}{\PYZdq{}}
+    \PY{n}{message} \PY{o}{=} \PY{n}{HumanMessage}\PY{p}{(}
+        \PY{n}{content}\PY{o}{=}\PY{p}{[}
+            \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{query}\PY{p}{\PYZcb{}}\PY{p}{,}
+            \PY{p}{\PYZob{}}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image\PYZus{}url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+                \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image\PYZus{}url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{url}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data:image/jpeg;base64,}\PY{l+s+si}{\PYZob{}}\PY{n}{vehicle\PYZus{}damage\PYZus{}base64\PYZus{}image}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{\PYZcb{}}\PY{p}{,}
+            \PY{p}{\PYZcb{}}\PY{p}{,}
+        \PY{p}{]}\PY{p}{,}
+    \PY{p}{)}
+    \PY{n}{response} \PY{o}{=} \PY{n}{llm}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{[}\PY{n}{message}\PY{p}{]}\PY{p}{)}    
+    \PY{n}{response\PYZus{}lower} \PY{o}{=} \PY{n}{response}\PY{o}{.}\PY{n}{content}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Award a payout (random, for now!)}
+    \PY{k}{if} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{no repair}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{response\PYZus{}lower}\PY{p}{:}
+        \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{No Repair}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{claim\PYZus{}payout} \PY{o}{=} \PY{l+m+mi}{0}
+    \PY{k}{elif} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{minor repair}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{response\PYZus{}lower}\PY{p}{:}
+        \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Minor Repair}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{claim\PYZus{}payout} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mf}{100.0}\PY{p}{,} \PY{l+m+mf}{499.0}\PY{p}{)}
+    \PY{k}{elif} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{moderate repair}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{response\PYZus{}lower}\PY{p}{:}
+        \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Moderate Repair}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{claim\PYZus{}payout} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mf}{500.0}\PY{p}{,} \PY{l+m+mf}{1999.0}\PY{p}{)}
+    \PY{k}{elif} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{major repair}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{response\PYZus{}lower}\PY{p}{:}
+        \PY{n}{claim\PYZus{}payout} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mf}{2000.0}\PY{p}{,} \PY{l+m+mf}{10000.0}\PY{p}{)}
+        \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Major Repair}\PY{l+s+s2}{\PYZdq{}}
+    \PY{k}{elif} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{irreparable}\PY{l+s+s2}{\PYZdq{}} \PY{o+ow}{in} \PY{n}{response\PYZus{}lower}\PY{p}{:}
+        \PY{n}{claim\PYZus{}payout} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{uniform}\PY{p}{(}\PY{l+m+mf}{15000.0}\PY{p}{,} \PY{l+m+mf}{35000.0}\PY{p}{)}
+        \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Irreparable}\PY{l+s+s2}{\PYZdq{}}
+    \PY{k}{else}\PY{p}{:}
+        \PY{n}{claim\PYZus{}payout} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{None}\PY{l+s+s2}{\PYZdq{}}
+    \PY{n}{claim\PYZus{}payout\PYZus{}formatted} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZdl{}}\PY{l+s+si}{\PYZob{}}\PY{n}{claim\PYZus{}payout}\PY{l+s+si}{:}\PY{l+s+s2}{.2f}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{damage\PYZus{}assessment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{vehicle\PYZus{}damage\PYZus{}assessment\PYZus{}decision}\PY{p}{,} 
+            \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}payout}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{claim\PYZus{}payout\PYZus{}formatted}
+           \PY{p}{\PYZcb{}} 
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{claim\PYZus{}processing\PYZus{}agent}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} Get the current date}
+    \PY{n}{current\PYZus{}date} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{date}\PY{o}{.}\PY{n}{today}\PY{p}{(}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Format the date into a string (e.g., YYYY\PYZhy{}MM\PYZhy{}DD)}
+    \PY{n}{formatted\PYZus{}date} \PY{o}{=} \PY{n}{current\PYZus{}date}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} Create the formatted string}
+    \PY{n}{claim\PYZus{}record} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim processed on date: }\PY{l+s+si}{\PYZob{}}\PY{n}{formatted\PYZus{}date}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}processing\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claims\PYZus{}history}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{n}{claim\PYZus{}record}\PY{p}{]}\PY{p}{\PYZcb{}} 
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{claim\PYZus{}payment\PYZus{}agent}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} 1. Get the current date}
+    \PY{n}{current\PYZus{}date} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{date}\PY{o}{.}\PY{n}{today}\PY{p}{(}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} 2. Define a timedelta object for 7 days}
+    \PY{n}{seven\PYZus{}days} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{timedelta}\PY{p}{(}\PY{n}{days}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} 3. Add 7 days to the current date}
+    \PY{n}{future\PYZus{}date} \PY{o}{=} \PY{n}{current\PYZus{}date} \PY{o}{+} \PY{n}{seven\PYZus{}days}
+    \PY{c+c1}{\PYZsh{} 4. Format the future date into a string}
+    \PY{n}{payout\PYZus{}date} \PY{o}{=} \PY{n}{future\PYZus{}date}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{c+c1}{\PYZsh{} 5. Print the formatted string with the future date}
+    \PY{n}{direct\PYZus{}deposit\PYZus{}payout\PYZus{}date} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Direct deposit for the amount of the claim payout to the policyholder}\PY{l+s+s2}{\PYZsq{}}\PY{l+s+s2}{s checking account is scheduled for date: }\PY{l+s+si}{\PYZob{}}\PY{n}{payout\PYZus{}date}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}payment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{direct\PYZus{}deposit\PYZus{}payout\PYZus{}date}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{direct\PYZus{}deposit\PYZus{}payout\PYZus{}date}\PY{p}{\PYZcb{}} 
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{claim\PYZus{}approved}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{n}{formatted\PYZus{}letter} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{We’re pleased to inform you that your claim has been processed and approved.}\PY{l+s+se}{\PYZbs{}}
+\PY{l+s+s2}{    The payout will be directly deposited to your checking account within seven business days.}\PY{l+s+se}{\PYZbs{}}
+\PY{l+s+s2}{    Thank you for choosing Allstate. If you have any questions, please contact us anytime.}
+\PY{l+s+s2}{    }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}approved}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{formatted\PYZus{}letter} \PY{p}{\PYZcb{}} 
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{claim\PYZus{}denied}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{n}{formatted\PYZus{}letter} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+s2}{    After careful review, we regret to inform you that your recent claim has been denied,}\PY{l+s+se}{\PYZbs{}}
+\PY{l+s+s2}{    as it does not meet the coverage criteria outlined in your policy.}\PY{l+s+se}{\PYZbs{}}
+\PY{l+s+s2}{    For more details or to discuss further, please contact our support team.}
+\PY{l+s+s2}{    }\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}    
+    
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}denied}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{formatted\PYZus{}letter}\PY{p}{\PYZcb{}} 
+
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{generate\PYZus{}claim\PYZus{}status}\PY{p}{(}\PY{n}{state}\PY{p}{)}\PY{p}{:}
+    \PY{n}{current\PYZus{}date} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{date}\PY{o}{.}\PY{n}{today}\PY{p}{(}\PY{p}{)}
+    \PY{n}{formatted\PYZus{}date} \PY{o}{=} \PY{n}{current\PYZus{}date}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{Y\PYZhy{}}\PY{l+s+s2}{\PYZpc{}}\PY{l+s+s2}{m\PYZhy{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n}{approved} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}approved}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+
+    \PY{n}{formatted\PYZus{}letter} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+s2}{    Date: }\PY{l+s+si}{\PYZob{}}\PY{n}{formatted\PYZus{}date}\PY{l+s+si}{\PYZcb{}}
+\PY{l+s+s2}{    policy\PYZus{}number\PYZus{}on\PYZus{}record: }\PY{l+s+si}{\PYZob{}}\PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{policy\PYZus{}number\PYZus{}on\PYZus{}record}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}
+\PY{l+s+s2}{    Dear policyholder please review the decision reached by our team for your claim: }\PY{l+s+si}{\PYZob{}}\PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}submitted}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}
+\PY{l+s+s2}{    Claim Review Decision: }\PY{l+s+si}{\PYZob{}}\PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}status}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}
+\PY{l+s+s2}{    }\PY{l+s+si}{\PYZob{}}\PY{n}{state}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{claim\PYZus{}payout}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{+w}{ }\PY{k}{if}\PY{+w}{ }\PY{n}{approved}\PY{+w}{ }\PY{k}{else}\PY{+w}{ }\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZcb{}}
+\PY{l+s+s2}{    Sincerely,}\PY{l+s+se}{\PYZbs{}}
+\PY{l+s+s2}{    Allstate Claims Team}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}    
+
+    \PY{n}{markdown\PYZus{}letter\PYZus{}instructions} \PY{o}{=} \PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\PY{l+s+s2}{    }
+\PY{l+s+s2}{    Use markdown formatting. }
+\PY{l+s+s2}{    }
+\PY{l+s+s2}{    Create a document with markdown that has filled 3 sections: }
+\PY{l+s+s2}{        \PYZhy{} Date}
+\PY{l+s+s2}{        \PYZhy{} Policy Number}
+\PY{l+s+s2}{        \PYZhy{} Decision}
+
+\PY{l+s+s2}{    Use Allstate Insurance Claim Processing Departmentfor title of the letter (\PYZsh{} markdown)}
+\PY{l+s+s2}{    Use Date for Date section header. (** markdown)}
+\PY{l+s+s2}{    Use Policy Number for Policy Number section header. (** markdown)}
+\PY{l+s+s2}{    Use Decision for Decision section header. (\PYZsh{}\PYZsh{} markdown)}
+
+
+\PY{l+s+s2}{    Use the following text to generate the complete final insurance claim letter: }\PY{l+s+si}{\PYZob{}}\PY{n}{formatted\PYZus{}letter}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+    
+    \PY{n}{message} \PY{o}{=} \PY{n}{HumanMessage}\PY{p}{(}
+        \PY{n}{content}\PY{o}{=}\PY{p}{[}
+            \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{type}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{text}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{markdown\PYZus{}letter\PYZus{}instructions}\PY{p}{\PYZcb{}}\PY{p}{,}
+        \PY{p}{]}\PY{p}{,}
+    \PY{p}{)}
+
+    \PY{n}{llm} \PY{o}{=} \PY{n}{ChatOpenAI}\PY{p}{(}\PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{gpt\PYZhy{}4o\PYZhy{}mini}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{temperature}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)} 
+    \PY{n}{markdown\PYZus{}formatted\PYZus{}letter} \PY{o}{=} \PY{n}{llm}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{[}\PY{n}{message}\PY{p}{]}\PY{p}{)}
+    
+    \PY{n}{markdown\PYZus{}formatted\PYZus{}letter\PYZus{}str} \PY{o}{=} \PY{n}{markdown\PYZus{}formatted\PYZus{}letter}\PY{o}{.}\PY{n}{content}
+    
+    \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}status\PYZus{}log}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate\PYZus{}claim\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}decision\PYZus{}letter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{formatted\PYZus{}letter}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{markdown\PYZus{}claim\PYZus{}decision\PYZus{}letter}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{markdown\PYZus{}formatted\PYZus{}letter\PYZus{}str}\PY{p}{,} \PY{p}{\PYZcb{}} 
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Construct the agents into a graph}
+
+\PY{c+c1}{\PYZsh{} Add nodes}
+\PY{n}{builder} \PY{o}{=} \PY{n}{StateGraph}\PY{p}{(}\PY{n}{ClaimState}\PY{p}{)}
+
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policyholder}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{policyholder}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policy\PYZus{}verification\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{policy\PYZus{}verification\PYZus{}agent}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{damage\PYZus{}assessment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{damage\PYZus{}assessment\PYZus{}agent}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}processing\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{claim\PYZus{}processing\PYZus{}agent}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}payment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{claim\PYZus{}payment\PYZus{}agent}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}approved}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{claim\PYZus{}approved}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}denied}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{claim\PYZus{}denied}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}node}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate\PYZus{}claim\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{generate\PYZus{}claim\PYZus{}status}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Workflow}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{n}{START}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policyholder}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policyholder}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policy\PYZus{}verification\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}conditional\PYZus{}edges}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{policy\PYZus{}verification\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{verify\PYZus{}policy}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{damage\PYZus{}assessment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}payment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{damage\PYZus{}assessment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}processing\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}payment\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}approved}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}processing\PYZus{}agent}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}approved}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}approved}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate\PYZus{}claim\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}denied}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate\PYZus{}claim\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{builder}\PY{o}{.}\PY{n}{add\PYZus{}edge}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{generate\PYZus{}claim\PYZus{}status}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{END}\PY{p}{)}
+
+\PY{n}{memory} \PY{o}{=} \PY{n}{MemorySaver}\PY{p}{(}\PY{p}{)}
+\PY{n}{graph} \PY{o}{=} \PY{n}{builder}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{checkpointer}\PY{o}{=}\PY{n}{memory}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} View out graph, check for completness}
+
+\PY{n}{display}\PY{p}{(}\PY{n}{Image}\PY{p}{(}\PY{n}{graph}\PY{o}{.}\PY{n}{get\PYZus{}graph}\PY{p}{(}\PY{n}{xray}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}\PY{o}{.}\PY{n}{draw\PYZus{}mermaid\PYZus{}png}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{Assignment_03_NOTEBOOK_Geidel_files/Assignment_03_NOTEBOOK_Geidel_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    \clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Create a function to instantiate the agent with a claim and policy}
+
+\PY{k}{def}\PY{+w}{ }\PY{n+nf}{process\PYZus{}claim}\PY{p}{(}\PY{n}{thread\PYZus{}id}\PY{p}{,} \PY{n}{claim\PYZus{}number}\PY{p}{,} \PY{n}{policy\PYZus{}number}\PY{p}{,} \PY{n}{damage\PYZus{}pdf\PYZus{}name}\PY{p}{)}\PY{p}{:}
+    \PY{n}{DAMAGE\PYZus{}PDF} \PY{o}{=} \PY{n}{damage\PYZus{}pdf\PYZus{}name}
+    \PY{n}{config} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{configurable}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{thread\PYZus{}id}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{n}{thread\PYZus{}id}\PY{p}{\PYZcb{}}\PY{p}{\PYZcb{}}
+    \PY{n}{graph}\PY{o}{.}\PY{n}{invoke}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{claim\PYZus{}submitted}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Claim number:}\PY{l+s+si}{\PYZob{}}\PY{n}{claim\PYZus{}number}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ and Policy number: }\PY{l+s+si}{\PYZob{}}\PY{n}{policy\PYZus{}number}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{config}\PY{p}{)}
+    \PY{n}{final\PYZus{}state} \PY{o}{=} \PY{n}{graph}\PY{o}{.}\PY{n}{get\PYZus{}state}\PY{p}{(}\PY{n}{config}\PY{p}{)}
+    \PY{n}{report} \PY{o}{=} \PY{n}{final\PYZus{}state}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{markdown\PYZus{}claim\PYZus{}decision\PYZus{}letter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{k}{return} \PY{n}{report}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Run the agent with a valid policy number and major damage}
+\PY{n}{POLICY\PYZus{}DELINQUENT} \PY{o}{=} \PY{k+kc}{False}
+
+\PY{n}{report} \PY{o}{=} \PY{n}{process\PYZus{}claim}\PY{p}{(}
+    \PY{n}{thread\PYZus{}id} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{claim\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{policy\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{999 876 543}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{damage\PYZus{}pdf\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{honda\PYZhy{}major\PYZhy{}damage.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+\PY{p}{)}
+\PY{n}{Markdown}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{12}{}
+    
+    \hypertarget{allstate-insurance-claim-processing-department}{%
+\section*{Allstate Insurance Claim Processing
+Department}\label{allstate-insurance-claim-processing-department}}
+
+\textbf{Date}\\
+2025-05-17
+
+\textbf{Policy Number}\\
+999 876 543
+
+\hypertarget{decision}{%
+\subsection*{Decision}\label{decision}}
+
+Dear policyholder, please review the decision reached by our team for
+your claim:\\
+\textbf{Claim number:} 123\\
+\textbf{Policy number:} 999 876 543
+
+Claim Review Decision: We're pleased to inform you that your claim has
+been processed and approved. The payout of \textbf{\$8419.44} will be
+directly deposited to your checking account within seven business days.
+Thank you for choosing Allstate. If you have any questions, please
+contact us anytime.
+
+Sincerely,\\
+Allstate Claims Team
+
+    
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Run with delinquent policy}
+\PY{n}{POLICY\PYZus{}DELINQUENT} \PY{o}{=} \PY{k+kc}{True}
+
+\PY{n}{report} \PY{o}{=} \PY{n}{process\PYZus{}claim}\PY{p}{(}
+    \PY{n}{thread\PYZus{}id} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{claim\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{policy\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{999 876 543}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{damage\PYZus{}pdf\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{honda\PYZhy{}major\PYZhy{}damage.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+\PY{p}{)}
+\PY{n}{Markdown}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{13}{}
+    
+    \hypertarget{allstate-insurance-claim-processing-department}{%
+\section*{Allstate Insurance Claim Processing
+Department}\label{allstate-insurance-claim-processing-department}}
+
+\textbf{Date}\\
+2025-05-17
+
+\textbf{Policy Number}\\
+999 876 543
+
+\hypertarget{decision}{%
+\subsection*{Decision}\label{decision}}
+
+Dear policyholder, please review the decision reached by our team for
+your claim:\\
+\textbf{Claim number:} 123\\
+\textbf{Policy number:} 999 876 543
+
+Claim Review Decision:\\
+After careful review, we regret to inform you that your recent claim has
+been denied, as it does not meet the coverage criteria outlined in your
+policy. For more details or to discuss further, please contact our
+support team.
+
+Sincerely,\\
+Allstate Claims Team
+
+    
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Run with an invalid policy number}
+\PY{n}{POLICY\PYZus{}DELINQUENT} \PY{o}{=} \PY{k+kc}{False}
+
+\PY{n}{report} \PY{o}{=} \PY{n}{process\PYZus{}claim}\PY{p}{(}
+    \PY{n}{thread\PYZus{}id} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{claim\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{policy\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FOO BAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{damage\PYZus{}pdf\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{honda\PYZhy{}major\PYZhy{}damage.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+\PY{p}{)}
+\PY{n}{Markdown}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{14}{}
+    
+    \hypertarget{allstate-insurance-claim-processing-department}{%
+\section*{Allstate Insurance Claim Processing
+Department}\label{allstate-insurance-claim-processing-department}}
+
+\textbf{Date}\\
+2025-05-17
+
+\textbf{Policy Number}\\
+999 876 543
+
+\hypertarget{decision}{%
+\subsection*{Decision}\label{decision}}
+
+Dear policyholder, please review the decision reached by our team for
+your claim:\\
+Claim number: 123 and Policy number: FOO BAR
+
+Claim Review Decision:\\
+After careful review, we regret to inform you that your recent claim has
+been denied, as it does not meet the coverage criteria outlined in your
+policy. For more details or to discuss further, please contact our
+support team.
+
+Sincerely,\\
+Allstate Claims Team
+
+    
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Run with minor damage}
+
+\PY{n}{report} \PY{o}{=} \PY{n}{process\PYZus{}claim}\PY{p}{(}
+    \PY{n}{thread\PYZus{}id} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{claim\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{policy\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{999 876 543}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{damage\PYZus{}pdf\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{honda\PYZhy{}minor\PYZhy{}damage.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+\PY{p}{)}
+\PY{n}{Markdown}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{15}{}
+    
+    \hypertarget{allstate-insurance-claim-processing-department}{%
+\section*{Allstate Insurance Claim Processing
+Department}\label{allstate-insurance-claim-processing-department}}
+
+\textbf{Date}\\
+2025-05-17
+
+\textbf{Policy Number}\\
+999 876 543
+
+\hypertarget{decision}{%
+\subsection*{Decision}\label{decision}}
+
+Dear policyholder, please review the decision reached by our team for
+your claim:\\
+\textbf{Claim number:} 123\\
+\textbf{Policy number:} 999 876 543
+
+Claim Review Decision: We're pleased to inform you that your claim has
+been processed and approved. The payout of \textbf{\$5,511.85} will be
+directly deposited to your checking account within seven business days.
+Thank you for choosing Allstate. If you have any questions, please
+contact us anytime.
+
+Sincerely,\\
+Allstate Claims Team
+
+    
+\clearpage
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} Run with moderate damage}
+
+\PY{n}{report} \PY{o}{=} \PY{n}{process\PYZus{}claim}\PY{p}{(}
+    \PY{n}{thread\PYZus{}id} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{claim\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{123}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{policy\PYZus{}number} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{999 876 543}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{damage\PYZus{}pdf\PYZus{}name} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{honda\PYZhy{}moderate\PYZhy{}damage.pdf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+\PY{p}{)}
+\PY{n}{Markdown}\PY{p}{(}\PY{n}{report}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{16}{}
+    
+    \hypertarget{allstate-insurance-claim-processing-department}{%
+\section*{Allstate Insurance Claim Processing
+Department}\label{allstate-insurance-claim-processing-department}}
+
+\textbf{Date}\\
+2025-05-17
+
+\textbf{Policy Number}\\
+999 876 543
+
+\hypertarget{decision}{%
+\subsection*{Decision}\label{decision}}
+
+Dear policyholder, please review the decision reached by our team for
+your claim:\\
+\textbf{Claim number:} 123\\
+\textbf{Policy number:} 999 876 543
+
+Claim Review Decision: We're pleased to inform you that your claim has
+been processed and approved. The payout of \textbf{\$2605.29} will be
+directly deposited to your checking account within seven business days.
+Thank you for choosing Allstate. If you have any questions, please
+contact us anytime.
+
+Sincerely,\\
+Allstate Claims Team
+
+    
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
