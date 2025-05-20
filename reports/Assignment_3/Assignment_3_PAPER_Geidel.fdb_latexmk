@@ -1,8 +1,8 @@
 # Fdb version 3
-["pdflatex"] 1747622458 "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3_PAPER_Geidel.tex" "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3_PAPER_Geidel.pdf" "Assignment_3_PAPER_Geidel" 1747622458
+["pdflatex"] 1747708912 "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3/Assignment_3_PAPER_Geidel.tex" "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3/Assignment_3_PAPER_Geidel.pdf" "Assignment_3_PAPER_Geidel" 1747708912
   "/etc/texmf/web2c/texmf.cnf" 1661383021 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3_PAPER_Geidel.aux" 1747622458 1731 a05a00ee17ca6582852e4a834eece955 ""
-  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3_PAPER_Geidel.tex" 1747622458 5835 dc6ac96940a5ae7f9c806d164473da71 ""
+  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3/Assignment_3_PAPER_Geidel.aux" 1747708912 1731 a05a00ee17ca6582852e4a834eece955 ""
+  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3/Assignment_3_PAPER_Geidel.tex" 1747622458 5835 dc6ac96940a5ae7f9c806d164473da71 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm" 1136768653 2172 fd0c924230362ff848a33632ed45dc23 ""
@@ -93,13 +93,13 @@
   "Assignment_03_NOTEBOOK_Geidel_files/BPMN.png" 1747533379 91635 c12777f05a1e40122b7240b43628b4d8 ""
   "Assignment_03_NOTEBOOK_Geidel_files/cell_3.png" 1747620782 82878 a6abd07c3357977825d01764e5aff22d ""
   "Assignment_03_NOTEBOOK_Geidel_files/damage_assessment_agent.png" 1747621502 150729 e721b23647962ded9865fd85beb2073b ""
-  "Assignment_3_PAPER_Geidel.aux" 1747622458 1731 a05a00ee17ca6582852e4a834eece955 "pdflatex"
-  "Assignment_3_PAPER_Geidel.out" 1747622458 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "Assignment_3_PAPER_Geidel.aux" 1747708912 1731 a05a00ee17ca6582852e4a834eece955 "pdflatex"
+  "Assignment_3_PAPER_Geidel.out" 1747708912 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
   "Assignment_3_PAPER_Geidel.tex" 1747622458 5835 dc6ac96940a5ae7f9c806d164473da71 ""
   (generated)
+  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3/Assignment_3_PAPER_Geidel.pdf"
   "Assignment_3_PAPER_Geidel.pdf"
-  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3_PAPER_Geidel.log"
-  "Assignment_3_PAPER_Geidel.aux"
-  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3_PAPER_Geidel.pdf"
-  "Assignment_3_PAPER_Geidel.log"
   "Assignment_3_PAPER_Geidel.out"
+  "Assignment_3_PAPER_Geidel.aux"
+  "/home/kevin/usr/NU/MSDS442DL/msds442/reports/Assignment_3/Assignment_3_PAPER_Geidel.log"
+  "Assignment_3_PAPER_Geidel.log"
