@@ -1,0 +1,22 @@
+[
+  {
+    "inquiry": "How can I check if my insurance is accepted by your office?",
+    "response": "Please provide your insurance provider and policy number when you call our office or check our website for a list of accepted plans."
+  },
+  {
+    "inquiry": "What are my payment options for a medical bill?",
+    "response": "We accept credit cards, debit cards, checks, and online payments through our patient portal. Payment plans may be available for larger balances."
+  },
+  {
+    "inquiry": "Can you explain my recent bill for lab services?",
+    "response": "Please contact our billing department with your account number. We’ll review the charges, including any lab fees, and clarify any questions."
+  },
+  {
+    "inquiry": "Do I need to pay a copay for a telehealth visit?",
+    "response": "Copays for telehealth visits depend on your insurance plan. Please verify with your provider or our office before the appointment."
+  },
+  {
+    "inquiry": "How do I submit a claim to my insurance for a recent visit?",
+    "response": "We typically submit claims directly to your insurance. If you need to submit manually, request an itemized receipt from us and follow your insurer’s submission process."
+  }
+]

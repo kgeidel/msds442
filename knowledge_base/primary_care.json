@@ -1,0 +1,22 @@
+[
+  {
+    "inquiry": "How do I schedule an annual physical exam?",
+    "response": "You can schedule an annual physical by calling our office or using our online patient portal. Please provide your insurance details and preferred dates."
+  },
+  {
+    "inquiry": "What should I do if I need a prescription refill?",
+    "response": "Contact our office or your pharmacy at least 48 hours before your medication runs out. We may require a visit if the prescription needs review."
+  },
+  {
+    "inquiry": "Do you offer telehealth appointments for routine check-ups?",
+    "response": "Yes, we provide telehealth appointments for routine check-ups when appropriate. Schedule through our portal or call to confirm eligibility."
+  },
+  {
+    "inquiry": "How can I manage my high blood pressure at home?",
+    "response": "Monitor your blood pressure regularly, maintain a low-sodium diet, exercise moderately, and take prescribed medications. Schedule follow-ups to track progress."
+  },
+  {
+    "inquiry": "Can you refer me to a specialist for my back pain?",
+    "response": "Yes, we can refer you to a specialist after an evaluation. Please book an appointment to discuss your symptoms and medical history."
+  }
+]

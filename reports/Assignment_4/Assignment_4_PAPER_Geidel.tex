@@ -1,0 +1,70 @@
+\documentclass[11pt,letterpaper]{article}
+
+%\usepackage{times}
+%\usepackage{epsfig}
+\usepackage{graphicx}
+%\usepackage{amsmath}
+%\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage[left=1in, right=1in, top=1in, bottom=1in]{geometry}
+\usepackage{titling}
+\usepackage{setspace}
+\usepackage{sectsty}
+\usepackage{tabto}
+\graphicspath{{./Assignment_04_NOTEBOOK_Geidel_files/}} % adds the assets directory to the path, throw your images there
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyheadoffset{0cm}
+\renewcommand{\headrulewidth}{0pt} 
+\renewcommand{\footrulewidth}{0pt}
+\fancyhead[R]{\thepage}
+\fancypagestyle{plain}{%
+  \fancyhf{}%
+  \fancyhead[R]{\thepage}%
+}
+
+\usepackage{cite}
+\usepackage[sectionbib]{natbib}
+\renewcommand{\refname}{}
+
+\begin{document}
+\fontfamily{ptm}\selectfont
+\sectionfont{\fontsize{12}{12}\fontfamily{ptm}\selectfont}
+\doublespacing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TITLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\droptitle}{1in} 
+
+\title{\large{ASSIGNMENT 4: \\ NORTHWESTERN MEMORIAL HEALTHCARE AGENT \\\vspace{1.2in}}}
+
+\author{
+Kevin Geidel \\
+MSDS 442: AI Agent Design \& Development \\
+Northwestern University \\
+May 25, 2025 \\
+}
+
+\date{}
+\maketitle
+\thispagestyle{empty}	
+\clearpage
+\setcounter{page}{1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PAGE 1 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \section*{Requirement 1: Graph the agent with LangChain/LangGraph}
+% \tab The construction of the agent and accompanying graph begins with the creation of the functions that serve as edges in our graph (see cell 3 in the appendix). 
+% The actual assembly of the graph itself occurs in cell 9. However, some of the components, such as the conditional edge, \texttt{verify\_policy}, and \textbf{ClaimState} class,
+% are built above. Following the logic in cell 9 we first instantiate an empty graph:
+
+% \begin{verbatim}
+% workflow = StateGraph(AgentState)
+% \end{verbatim}
+
+% The \texttt{workflow} object has \texttt{add\_node} and \texttt{add\_edge} methods that allow us to assemble the 
+% components created in cells 3-8. The output is displayed graphically in cell 10 (reproduced in figure \ref{fig:graph} below.)
+
+Link to the Grok session for knowledge base generation: \url{https://grok.com/share/bGVnYWN5_2b101ac8-5575-458e-a8be-7c50e3134e34}
+
+\end{document}

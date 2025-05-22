@@ -1,0 +1,22 @@
+[
+  {
+    "inquiry": "What is the schedule for childhood vaccinations?",
+    "response": "Vaccinations follow the CDC schedule, including DTaP at 2, 4, and 6 months, MMR at 12-15 months, and others. We can provide a full chart during your visit."
+  },
+  {
+    "inquiry": "How do I know if my child has a fever that needs medical attention?",
+    "response": "For infants under 3 months, any fever over 100.4°F requires immediate attention. For older children, contact us if the fever exceeds 102°F or lasts more than 2 days."
+  },
+  {
+    "inquiry": "Can you see my child for a same-day sick visit?",
+    "response": "Yes, we offer same-day appointments for urgent concerns. Call us early in the day to secure a slot."
+  },
+  {
+    "inquiry": "What should I do if my child is having trouble sleeping?",
+    "response": "Establish a consistent bedtime routine, limit screen time before bed, and ensure a calm sleep environment. If issues persist, we can evaluate for underlying causes."
+  },
+  {
+    "inquiry": "Do you offer developmental screenings for toddlers?",
+    "response": "Yes, we provide developmental screenings at well-child visits, typically at 9, 18, and 24 months, to monitor milestones and address any concerns."
+  }
+]

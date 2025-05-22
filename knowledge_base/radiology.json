@@ -1,0 +1,22 @@
+[
+  {
+    "inquiry": "How should I prepare for an MRI scan?",
+    "response": "Avoid wearing metal objects, including jewelry and clothing with zippers. Inform us of any implants or medical devices. You may need to fast for a few hours beforehand, depending on the scan."
+  },
+  {
+    "inquiry": "How long will it take to get my X-ray results?",
+    "response": "X-ray results are typically available within 24-48 hours. Your referring physician will receive the report, and we can provide a copy upon request."
+  },
+  {
+    "inquiry": "Is a CT scan safe for my child?",
+    "response": "CT scans are generally safe but involve radiation exposure. We use the lowest possible dose for pediatric patients and only perform scans when medically necessary."
+  },
+  {
+    "inquiry": "Do I need a referral for an ultrasound?",
+    "response": "Yes, a referral from your physician is typically required for an ultrasound. Contact our scheduling department to confirm and book an appointment."
+  },
+  {
+    "inquiry": "Can I eat or drink before a mammogram?",
+    "response": "Yes, you can eat and drink normally. Avoid using deodorant, lotion, or powder on your chest or underarms, as these can interfere with the imaging."
+  }
+]

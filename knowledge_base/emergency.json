@@ -1,0 +1,22 @@
+[
+  {
+    "inquiry": "What should I do if I suspect someone is having a stroke?",
+    "response": "Call 911 immediately. Note the time symptoms started and look for signs like facial drooping, arm weakness, or slurred speech. Do not delay seeking care."
+  },
+  {
+    "inquiry": "How long is the current wait time in the emergency department?",
+    "response": "Wait times vary based on patient volume and severity. Call our triage line for an estimated wait time, but come immediately for life-threatening conditions."
+  },
+  {
+    "inquiry": "Can I bring a family member with me to the emergency room?",
+    "response": "Yes, one family member is typically allowed, depending on the situation and current hospital policies Hai. Please check with staff upon arrival."
+  },
+  {
+    "inquiry": "What documents or information should I bring to the emergency department?",
+    "response": "Bring your ID, insurance card, list of medications, and any relevant medical history. If possible, note the time and details of your symptoms."
+  },
+  {
+    "inquiry": "Do you treat non-life-threatening injuries like a sprained ankle?",
+    "response": "Yes, we treat non-emergent injuries like sprains. However, urgent care may be faster for non-life-threatening conditions."
+  }
+]

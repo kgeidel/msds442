@@ -1,0 +1,22 @@
+[
+  {
+    "inquiry": "Do you have any available appointments with a cardiologist next week?",
+    "response": "Appointment availability varies. New patients typically need a referral. Provide the exact date you are looking for so we can check for availability"
+  },
+  {
+    "inquiry": "What tests are done during a heart check-up?",
+    "response": "Standard tests include EKG, blood pressure, cholesterol screening, and physical exam. Additional tests ordered as needed."
+  },
+  {
+    "inquiry": "How should I prepare for a stress test?",
+    "response": "Wear comfortable clothes and walking shoes. Avoid caffeine and heavy meals before the test. Bring a list of medications."
+  },
+  {
+    "inquiry": "What do you recommend to watch for to see if I have signs of heart problems?",
+    "response": "Watch for chest pain, shortness of breath, irregular heartbeat, fatigue, and swelling in legs. Go to ER for severe symptoms."
+  },
+  {
+    "inquiry": "Do you offer heart screenings?",
+    "response": "Yes, we provide preventive screenings including calcium scoring, cholesterol tests, and blood pressure monitoring."
+  }
+]
