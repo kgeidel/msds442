@@ -8,6 +8,10 @@
     "response": "Wait times vary based on patient volume and severity. Call our triage line for an estimated wait time, but come immediately for life-threatening conditions."
   },
   {
+    "inquiry": "Can I visit my friend in the ER, and are there any restrictions?",
+    "response": "ER visitation varies by hospital. Most allow 1-2 visitors, with restrictions during flu season or for immunocompromised patients. Masks or health screenings may be required; children under 12 might be barred. Contact the hospital’s ER for specific rules, as policies differ."
+  },
+  {
     "inquiry": "Can I bring a family member with me to the emergency room?",
     "response": "Yes, one family member is typically allowed, depending on the situation and current hospital policies Hai. Please check with staff upon arrival."
   },

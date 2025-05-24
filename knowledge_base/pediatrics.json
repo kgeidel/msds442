@@ -4,6 +4,10 @@
     "response": "Vaccinations follow the CDC schedule, including DTaP at 2, 4, and 6 months, MMR at 12-15 months, and others. We can provide a full chart during your visit."
   },
   {
+    "inquiry": "How can I tell if my child has RSV (Respiratory Syncytial Virus)?",
+    "response": "RSV symptoms in kids include runny nose, cough, fever, and wheezing. Severe signs in infants include difficulty breathing, nasal flaring, chest retractions, or bluish lips. High-risk groups include babies under 6 months or those with heart/lung issues. Seek medical care for rapid breathing or dehydration. A nasal swab or chest X-ray may confirm RSV."
+  },
+  {
     "inquiry": "How do I know if my child has a fever that needs medical attention?",
     "response": "For infants under 3 months, any fever over 100.4°F requires immediate attention. For older children, contact us if the fever exceeds 102°F or lasts more than 2 days."
   },

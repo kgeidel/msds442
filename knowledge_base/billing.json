@@ -18,5 +18,9 @@
   {
     "inquiry": "How do I submit a claim to my insurance for a recent visit?",
     "response": "We typically submit claims directly to your insurance. If you need to submit manually, request an itemized receipt from us and follow your insurer’s submission process."
+  },
+  {
+    "inquiry": "Can you help me understand my recent medical bill and whether my insurance covered the costs?",
+    "response": "Review your insurance’s Explanation of Benefits (EOB) for coverage details. Compare with the hospital bill for accuracy. Contact insurance for coverage clarification and the hospital’s billing department for disputes. Share specific bill details for general term explanations."
   }
 ]

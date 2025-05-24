@@ -16,6 +16,10 @@
     "response": "Yes, a referral from your physician is typically required for an ultrasound. Contact our scheduling department to confirm and book an appointment."
   },
   {
+    "inquiry": "How should I prepare for a CT scan, and are there any dietary restrictions?",
+    "response": "For CT scans, fast 4-6 hours if contrast dye is used; clear liquids may be allowed. Remove metal objects, wear loose clothing, and stay still during the scan. Inform your doctor about allergies or kidney issues. Follow specific instructions, as some scans have no restrictions."
+  },
+  {
     "inquiry": "Can I eat or drink before a mammogram?",
     "response": "Yes, you can eat and drink normally. Avoid using deodorant, lotion, or powder on your chest or underarms, as these can interfere with the imaging."
   }

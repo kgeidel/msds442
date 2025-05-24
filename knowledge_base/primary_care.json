@@ -12,6 +12,10 @@
     "response": "Yes, we provide telehealth appointments for routine check-ups when appropriate. Schedule through our portal or call to confirm eligibility."
   },
   {
+    "inquiry": "How can I check if my recent test result has been reviewed by my primary care physician?",
+    "response": "Call your physician’s office or check their patient portal to confirm if test results are reviewed. Ask for a summary or follow-up. Some labs offer direct online access, but physician interpretation is key. Mention urgency if needed to expedite review."
+  },
+  {
     "inquiry": "How can I manage my high blood pressure at home?",
     "response": "Monitor your blood pressure regularly, maintain a low-sodium diet, exercise moderately, and take prescribed medications. Schedule follow-ups to track progress."
   },
