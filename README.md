@@ -8,9 +8,9 @@ Spring '25
 </div>
 <hr>
 
-#### Assignment 1: Financial Planning Agent
+#### Development environment
 
-To replicate the experiment run the following commands (note: these are form Linux/Unix based systems. Please adapt these commands for use with Windows if needed.)
+To replicate the experiments, assignments and projects run the following commands (note: these are form Linux/Unix based systems. Please adapt these commands for use with Windows if needed.)
 
 ```shell
 # Clone and enter the repo
