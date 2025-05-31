@@ -1,9 +1,59 @@
+% Preparing the document with necessary packages
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{geometry}
+\geometry{letterpaper, margin=1in}
+
+% Defining colors for syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Configuring the listings package for Python
+\lstset{
+    language=Python,
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=4,
+    frame=single,
+    escapeinside={(*@}{@*)},
+    escapechar=\&,
+}
+
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Clear all header and footer fields
+\fancyhead[R]{\thepage} % Place the page number in the top right corner
+\renewcommand{\headrulewidth}{0pt} % Remove the header rule   
+\setcounter{page}{5} 
+
+\begin{document}
+
+% Including the Python code
+\begin{lstlisting}
 #######################################################################
 # MSDS 442: AI Agent Design and Development
 # Spring '25
 # Dr. Bader
 #
-# Final Project: AI Agent Automation for Peloton’s Fitness Ecosystem
+# Final Project: AI Agent Automation for Peloton's Fitness Ecosystem
 # Phase 2 - Prototype
 # 
 # Kevin Geidel
@@ -50,7 +100,7 @@ class PelotonAgent:
         referring_node: str
         next_node: str
         messages: Annotated[Sequence[BaseMessage], "List of messages in the conversation"]
-
+        &\clearpage&
     def __init__(self):
         # Assign agent-wide variables
         self.model_name = 'gpt-4o-mini'
@@ -102,7 +152,7 @@ class PelotonAgent:
         messages = state.get("messages", [])
         history = "\n".join([f'{msg.type}: {msg.content}' for msg in messages][:5])
         return inquiry, messages, history
-
+&\clearpage&
     def get_standard_human_message(self, inquiry, history):
         return HumanMessage(
             content = f"""Provide an answer for the following user's inquiry: 
@@ -206,7 +256,7 @@ class PelotonAgent:
         terminate = self.termination_check(state)
         if terminate:
             return terminate
-        
+        &\clearpage&
         # check for ongoing conversation
         ongoing = self.route_ongoing_chat(state)
         if ongoing:
@@ -254,7 +304,7 @@ class PelotonAgent:
             Conversation history for content:
             {history}
             """.strip()
-        )
+        )&\clearpage&
         if state['referring_node'] == 'Router':
             marketing_agent_system_message = SystemMessage(
                 content = f"""You are a helpful assistant tasked with retrieving and organizing data to answer questions about ongoing marketing campaigns.
@@ -298,7 +348,7 @@ class PelotonAgent:
             'response': response,
             'messages': messages + [SystemMessage(content=response.content.strip())]
         }
-    
+    &\clearpage&
     def membership_agent(self, state):
         # Target use cases:
         #   1) Analyze login patterns to aid in fraud detection.
@@ -345,3 +395,6 @@ class PelotonAgent:
             if not isinstance(response, str):
                 response = response.content
             print('Agent:\n ', textwrap.fill(response, 80))
+\end{lstlisting}
+
+\end{document}
