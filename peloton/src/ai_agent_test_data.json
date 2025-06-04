@@ -196,6 +196,13 @@
       "Category": "Apparel",
       "Price": 18.0,
       "StockQty": 140
+    },
+    {
+    "ProductID": "P016",
+    "ProductName": "Treadmill, Heavy-duty",
+    "Category": "Equipment",
+    "Price": 899.99,
+    "StockQty": 2
     }
   ],
   "Marketing": [

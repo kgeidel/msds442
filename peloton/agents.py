@@ -4,7 +4,7 @@
 # Dr. Bader
 #
 # Final Project: AI Agent Automation for Peloton’s Fitness Ecosystem
-# Phase 2 - Prototype
+# Phase 3 - MVP
 # 
 # Kevin Geidel
 #
@@ -19,7 +19,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Python native imports
-import os, inspect, textwrap, time, sys
+import os, inspect, textwrap, time, sys, re, json
 from typing import Annotated, Sequence
 
 # LangChain/LangGraph imports
@@ -27,6 +27,7 @@ from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.document_loaders import JSONLoader
 from langchain.tools.retriever import create_retriever_tool
+from langchain_core.tools import tool
 from langchain.embeddings.sentence_transformer import SentenceTransformerEmbeddings
 os.environ['USER_AGENT'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
 __import__('pysqlite3')
@@ -43,6 +44,7 @@ from typing_extensions import TypedDict
 
 class PelotonAgent:
     ''' Namespace for methods and metaclasses that facilliate Peloton's Agent-based automation. '''
+    USER_ID_REGEX_PATTERN = r'^U[0-9]{3}$'
 
     class InquiryState(TypedDict):
         inquiry: str
@@ -120,6 +122,7 @@ class PelotonAgent:
         builder.add_node('Marketing', self.marketing_agent)
         builder.add_node('DataScience', self.data_science_agent)
         builder.add_node('MembershipAndFraudDetection', self.membership_agent)
+        builder.add_node('reset_password', self.reset_password)
         builder.add_node('Orders', self.orders_agent)
         builder.add_node('Recommendations', self.recommendation_agent)
         retriever_tool = ToolNode([self.get_retriever_tool()])
@@ -136,10 +139,11 @@ class PelotonAgent:
                 tools_condition,
                 {
                     'tools': 'Retrieve',
+                    'reset_password': 'reset_password',
                     END: END,
                 }
             )
-        
+        builder.add_edge("reset_password", END)
         self.graph = builder.compile(checkpointer=MemorySaver())
 
     def draw_graph(self):
@@ -306,7 +310,9 @@ class PelotonAgent:
         if state['referring_node'] == 'Router':
             marketing_agent_system_message = SystemMessage(
                 content = f"""You are a helpful assistant tasked with answering questions about membership accounts and detecting fradulent login attempts.
-                If the inquiry relates to data found in the agent database, base answers solely on the records within: {str(self.data)}"""
+                If the user asks to reset their password return 'reset_password' without any additional characters.
+                If the user identifies themselves with their user ID return just their ID with no extra characters (i.e. 'U001')
+                Otherwise, answer the inquiry. If the inquiry relates to data found in the agent database, base answers solely on the records within: {str(self.data)}"""
             )
             messages += [marketing_agent_system_message, self.get_standard_human_message(inquiry, history)]
         else:
@@ -315,20 +321,131 @@ class PelotonAgent:
         # query the llm
         response = self.llm.invoke(messages)
 
+        if response.content.lower() == 'reset_password':
+            next_state = self.reset_password(state)
+            next_node = next_state.get('next_node', END)
+        elif re.match(self.USER_ID_REGEX_PATTERN, response.content.upper()):
+            self.send_login_alert(user_id=response.content.upper())
+            next_node = END
+        else:
+            next_node = tools_condition(state)
+
         return {
             'inquiry': inquiry,
             'referring_node': 'MembershipAndFraudDetection',
-            'next_node': tools_condition(state),
+            'next_node': next_node,
             'response': response,
             'messages': messages + [SystemMessage(content=response.content.strip())]
         }
     
     def orders_agent(self, state):
-        return self.unimplemented_agent(state)
+        # Target use cases:
+        #   1) API integration with shipping partners (simulated)
+        #   2) Inventory analysis and restocking recommendations
+        #   3) Resolution of order issues
+        inquiry, messages, history = self.extract_from_state(state)
+        if state['referring_node'] == 'Router':
+            system_message = SystemMessage(
+                content = f"""You are a helpful assistant tasked with managing order and shipping inquiries for Peloton.
+                - For shipping-related inquiries (e.g., tracking, status), simulate an API call to a shipping partner and provide a response based on OrderShipping data: {self.data_as_dict['OrderShipping']}.
+                - For inventory or restocking inquiries, analyze Product data: {self.data_as_dict['Product']} to calculate sales velocity (items sold from orders / days since first order) and assume a 5% return rate; recommend restocking if stock is below 30 days of sales.
+                - For order issues (e.g., cancel, modify, delay), resolve based on OrderShipping data, updating status or providing guidance.
+                - If the inquiry relates to data in the agent database, base answers solely on the records within: {str(self.data)}.
+                - Return 'simulate_shipping_api' for shipping-related requests requiring external integration."""
+            )
+            messages += [system_message, self.get_standard_human_message(inquiry, history)]
+        else:
+            messages += [self.get_standard_human_message(inquiry, history)]
+
+        # Query the LLM
+        response = self.llm.invoke(messages)
+        response_content = response.content.strip()
+
+        # Handle simulated shipping API call
+        if response_content == 'simulate_shipping_api':
+            order_id_match = re.search(r'ORD\d{3}', inquiry.upper())
+            self.external_shipping_api(state, order_id_match, )
+
+        # Handle other responses
+        return {
+            'inquiry': inquiry,
+            'referring_node': 'Orders',
+            'next_node': tools_condition(state),
+            'response': response,
+            'messages': messages + [SystemMessage(content=response_content)]
+        }
     
     def recommendation_agent(self, state):
-        return self.unimplemented_agent(state)
+        # Target use cases:
+        #   1) Recommend Peloton accessories
+        #   2) Recommend best-selling product bundles
+        #   3) Compare products (e.g., comparing two treadmills)
+        inquiry, messages, history = self.extract_from_state(state)
+        if state['referring_node'] == 'Router':
+            system_message = SystemMessage(
+                content = f"""You are a helpful assistant tasked with providing product recommendations for Peloton.
+                - For accessory recommendations, suggest high-stock, low-price items from Product data (Category: Accessories) and justify based on stock and price: {self.data_as_dict['Product']}.
+                - For best-selling product bundles, analyze OrderShipping data: {self.data_as_dict['OrderShipping']} to identify products frequently ordered together (based on high item counts and shipped status), and suggest 2-3 item bundles.
+                - For product comparisons, compare attributes (e.g., price, stock) of requested products from Product data, prioritizing Equipment category for treadmills.
+                - If the inquiry relates to data in the agent database, base answers solely on the records within: {str(self.data)}."""
+            )
+            messages += [system_message, self.get_standard_human_message(inquiry, history)]
+        else:
+            messages += [self.get_standard_human_message(inquiry, history)]
+
+        # Query the LLM
+        response = self.llm.invoke(messages)
+        response_content = response.content.strip()
+
+        return {
+            'inquiry': inquiry,
+            'referring_node': 'Recommendations',
+            'next_node': tools_condition(state),
+            'response': response,
+            'messages': messages + [SystemMessage(content=response_content)]
+        }
     
+    # Other functions
+    def send_login_alert(self, user_id='U001'):
+        """ Send a login alert """
+        msg = f"""
+        This tool triggers a login alert. It could be sent
+        via email or text/SMS. It would say:
+        'Login alert! User {user_id} has logged in!'
+        """
+        print(msg)
+
+    def reset_password(self, state, user_id='U001'):
+        """ Reset the users password. """
+        msg = f"""
+        The reset_password function has been called.
+        In a production implementation this would be a form.
+        The form would validate you are indeed user {user_id}.
+        Upon authentication you would be prompted for your new password.
+        """
+        print(msg)
+        return {
+            'inquiry': state.get('inquiry', ''),
+            'referring_node': 'MembershipAndFraudDetection',
+            'next_node': END,
+            'response': 'Password updated!',
+            'messages': state.get('messages', []) + [SystemMessage(content=f'Updated password for user: {user_id}')]
+        }
+
+    def external_shipping_api(self, state, order_id):
+        msg = f"""
+        The agent has detrmined it needs to query the shipping carrier's external API.
+        The following data will be used in the query:
+        {self.data_as_dict['OrderShipping'][0]} 
+         
+        Based on the inquiry: {state['inqiuiry']}
+        """
+        print(msg)
+
+    @property
+    def data_as_dict(self):
+        return json.loads(self.data[0].page_content)
+
     def invoke(self, thread_id="1"):
         config = {"configurable": {"thread_id": thread_id}}
         while True:
